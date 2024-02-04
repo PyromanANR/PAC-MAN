@@ -4,10 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="Start PAC-MAN">
+    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="Add some method to class GameRender.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/GameRender.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/GameRender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/main/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/GameObject.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/GameRender.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/GameRender_Object.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/PacmanGameController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/PacmanGameController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/MovableObject/Ghost.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/MovableObject/MovableObject.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/MovableObject/PacMan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Object_not_movable/Objnotmove.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/main/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ghost.png" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/images/ghost.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ghost_blue.png" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/images/ghost_blue.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ghost_fright.png" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/images/ghost_fright.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ghost_orange.png" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/images/ghost_orange.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ghost_pink.png" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/images/ghost_pink.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/man.png" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/images/man.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/paku.png" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/images/paku.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,23 +51,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature__branch/Nikita&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Main.executor": "Run",
+    "Python.test (1).executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature__branch/Nikita",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+}]]></component>
+  <component name="RunManager" selected="Python.Main">
+    <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PAC-MAN" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -63,12 +78,35 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Game/main" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="F:\IT\Python\PAC-MAN\main\test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Game/main/Main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PAC-MAN" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Game/main" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Game/main/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -79,8 +117,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.test" />
+        <item itemvalue="Python.Main" />
+        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.test" />
       </list>
@@ -110,6 +148,7 @@
       <workItem from="1706775612533" duration="70000" />
       <workItem from="1707069319678" duration="21000" />
       <workItem from="1707070863783" duration="24000" />
+      <workItem from="1707087496056" duration="302000" />
     </task>
     <task id="LOCAL-00001" summary="Start PAC-MAN">
       <option name="closed" value="true" />
@@ -119,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706528252980</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add some method to class GameRender.py">
+      <option name="closed" value="true" />
+      <created>1707083062519</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1707083062519</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +178,11 @@
         <entry key="Branch">
           <value>
             <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="feature_branch/Nikita" />
+                </option>
+              </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="master" />
@@ -165,9 +217,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start PAC-MAN" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start PAC-MAN" />
+    <MESSAGE value="Add some method to class GameRender.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add some method to class GameRender.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/PAC_MAN$test.coverage" NAME="test Coverage Results" MODIFIED="1707070872001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PAC_MAN$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1707087797764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
+    <SUITE FILE_PATH="coverage/PAC_MAN$test.coverage" NAME="test Coverage Results" MODIFIED="1707087677912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PAC_MAN$Main.coverage" NAME="Main Coverage Results" MODIFIED="1707087807155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
   </component>
 </project>
