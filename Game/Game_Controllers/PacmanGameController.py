@@ -1,9 +1,8 @@
-
 class PacmanGameController:
     def __init__(self):
         self.ascii_maze = [
             "WWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-            "W P    S      W G        G W",
+            "W      S   P  W G        G W",
             "WWWWW WWWWWWWWWWWWWWWW WWWWW",
             "WWWWW WWWWWWWWWWWWWWWW WWWWW",
             "W    S  G    G        S    W",
@@ -11,6 +10,7 @@ class PacmanGameController:
         ]
 
         self.numpy_maze = []
+        self.hero_position = []
         self.cookie_spaces = []
         self.reachable_spaces = []
         self.unstoppability_spaces = []
@@ -30,6 +30,9 @@ class PacmanGameController:
             self.size = (len(row), x + 1)
             binary_row = []
             for y, column in enumerate(row):
+                if column == "P":
+                    self.hero_position.append((y, x))
+
                 if column == "G":
                     self.ghost_spawns.append((y, x))
 

@@ -36,7 +36,7 @@ if __name__ == "__main__":
                       pacman_game.ghost_colors[i % 4])
         game_renderer.add_game_object(ghost)
 
-
-    pacman = PacMan(game_renderer, unified_size, unified_size, unified_size)
+    translated = translate_maze_to_screen(pacman_game.hero_position[0])
+    pacman = PacMan(game_renderer,  translated[0],  translated[1], unified_size)
     game_renderer.add_hero(pacman)
     game_renderer.tick(120)
