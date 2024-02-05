@@ -3,10 +3,10 @@ class PacmanGameController:
     def __init__(self):
         self.ascii_maze = [
             "WWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-            "W P           W G          W",
+            "W P           W G        G W",
             "WWWWW WWWWWWWWWWWWWWWW WWWWW",
             "WWWWW WWWWWWWWWWWWWWWW WWWWW",
-            "W                          W",
+            "W       G    G             W",
             "WWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         ]
 
@@ -14,6 +14,12 @@ class PacmanGameController:
         self.cookie_spaces = []
         self.reachable_spaces = []
         self.ghost_spawns = []
+        self.ghost_colors = [
+            (255, 0, 0),
+            (255, 184, 255),
+            (0, 255, 255),
+            (255, 184, 82)
+        ]
 
         self.size = (0, 0)
         self.convert_maze_to_numpy()

@@ -1,5 +1,8 @@
 import pygame
 
+from Game.Game_Controllers.Direction import Direction
+
+
 class GameObject:
     def __init__(self, in_surface, x, y,
                  in_size: int, in_color=(255, 0, 0),
@@ -29,22 +32,15 @@ class GameObject:
     def tick(self):
         pass
 
+    def get_shape(self):
+        return self._shape
 
-class Wall(GameObject):
-    # Gray - in_color=(128, 128, 128)
-    def __init__(self, in_surface, x, y, in_size: int, in_color=(128, 128, 128)):
-        super().__init__(in_surface, x * in_size, y * in_size, in_size, in_color)
+    def set_position(self, in_x, in_y):
+        self.x = in_x
+        self.y = in_y
 
-
-class Cookie(GameObject):
-    def __init__(self):
-        self
-
-
-class Powerup(GameObject):
-    def __init__(self):
-        self
-
+    def get_position(self):
+        return (self.x, self.y)
 
 class GameRenderer:
     def __init__(self, in_width: int, in_height: int):
@@ -58,7 +54,7 @@ class GameRenderer:
         self._game_objects = []
         self._walls = []
         self._cookies = []
-        self._hero: PacMan = None
+        self._hero = None
 
     def tick(self, in_fps: int):
         black = (0, 0, 0)
@@ -77,26 +73,33 @@ class GameRenderer:
     def add_game_object(self, obj: GameObject):
         self._game_objects.append(obj)
 
-    def add_wall(self, obj: Wall):
+    def add_wall(self, obj):
         self.add_game_object(obj)
         self._walls.append(obj)
+
+    def add_cookie(self, obj: GameObject):
+        self._game_objects.append(obj)
+        self._cookies.append(obj)
+
+    # in GameRenderer class
+    def add_hero(self, in_hero):
+        self.add_game_object(in_hero)
+        self._hero = in_hero
+
+    def get_walls(self):
+        return self._walls
 
     def _handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._done = True
 
-
-class MovableObject(GameObject):
-    def __init__(self):
-        self
-
-
-class PacMan(MovableObject):
-    def __init__(self):
-        self
-
-
-class Ghost(MovableObject):
-    def __init__(self):
-        self
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_UP]:
+            self._hero.set_direction(Direction.UP)
+        elif pressed[pygame.K_LEFT]:
+            self._hero.set_direction(Direction.LEFT)
+        elif pressed[pygame.K_DOWN]:
+            self._hero.set_direction(Direction.DOWN)
+        elif pressed[pygame.K_RIGHT]:
+            self._hero.set_direction(Direction.RIGHT)
