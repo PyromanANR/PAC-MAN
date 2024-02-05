@@ -54,6 +54,7 @@ class GameRenderer:
         self._game_objects = []
         self._walls = []
         self._cookies = []
+        self._unstoppability = []
         self._hero = None
 
     def tick(self, in_fps: int):
@@ -80,6 +81,10 @@ class GameRenderer:
     def add_cookie(self, obj: GameObject):
         self._game_objects.append(obj)
         self._cookies.append(obj)
+
+    def add_unstoppability(self, obj: GameObject):
+        self._game_objects.append(obj)
+        self._unstoppability.append(obj)
 
     # in GameRenderer class
     def add_hero(self, in_hero):

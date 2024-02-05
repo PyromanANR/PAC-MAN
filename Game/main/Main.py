@@ -4,6 +4,7 @@ from Game.Game_Controllers.Translate_func import translate_maze_to_screen, unifi
 from Game.MovableObj.Ghost import Ghost
 from Game.MovableObj.PacMan import PacMan
 from Game.NotMovableObj.Cookie import Cookie
+from Game.NotMovableObj.Unstoppability import Unstoppability
 from Game.NotMovableObj.Wall import Wall
 
 
@@ -23,6 +24,11 @@ if __name__ == "__main__":
         translated = translate_maze_to_screen(cookie_space)
         cookie = Cookie(game_renderer, translated[0] + unified_size / 2, translated[1] + unified_size / 2)
         game_renderer.add_cookie(cookie)
+
+    for unstoppability_space in pacman_game.unstoppability_spaces:
+        translated = translate_maze_to_screen(unstoppability_space)
+        Unstop = Unstoppability(game_renderer, translated[0] + unified_size / 2, translated[1] + unified_size / 2)
+        game_renderer.add_unstoppability(Unstop)
 
     for i, ghost_spawn in enumerate(pacman_game.ghost_spawns):
         translated = translate_maze_to_screen(ghost_spawn)
