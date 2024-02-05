@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="add files">
+    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="Add Unstoppability">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/Game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/PacmanGameController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/PacmanGameController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/NotMovableObj/Cookie.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/NotMovableObj/Cookie.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/NotMovableObj/Unstoppability.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/NotMovableObj/Unstoppability.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/MovableObj/PacMan.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/MovableObj/PacMan.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/main/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/Main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature_branch/Nikita" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,7 +46,7 @@
     "Python.test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "feature__branch/Nikita",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -116,8 +114,8 @@
       <list>
         <item itemvalue="Python.Main" />
         <item itemvalue="Python.test (1)" />
-        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.test (1)" />
       </list>
     </recent_temporary>
@@ -148,7 +146,7 @@
       <workItem from="1707070863783" duration="24000" />
       <workItem from="1707087496056" duration="302000" />
       <workItem from="1707117673502" duration="6304000" />
-      <workItem from="1707140535878" duration="1232000" />
+      <workItem from="1707140535878" duration="3197000" />
     </task>
     <task id="LOCAL-00001" summary="Start PAC-MAN">
       <option name="closed" value="true" />
@@ -190,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707132922934</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add Unstoppability">
+      <option name="closed" value="true" />
+      <created>1707141864801</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1707141864801</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,11 +244,12 @@
     <MESSAGE value="Decomposition files" />
     <MESSAGE value="Add Ghost to game" />
     <MESSAGE value="Add Pac-Man" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Pac-Man" />
+    <MESSAGE value="Add Unstoppability" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Unstoppability" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PAC_MAN$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1707140968020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
     <SUITE FILE_PATH="coverage/PAC_MAN$test.coverage" NAME="test Coverage Results" MODIFIED="1707087677912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PAC_MAN$Main.coverage" NAME="Main Coverage Results" MODIFIED="1707141771250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
+    <SUITE FILE_PATH="coverage/PAC_MAN$Main.coverage" NAME="Main Coverage Results" MODIFIED="1707143743682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
   </component>
 </project>

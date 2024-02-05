@@ -8,7 +8,7 @@ class PacMan(MovableObject):
         self.last_non_colliding_position = (0, 0)
 
     def tick(self):
-        # TELEPORT
+        # TELEPORT(Start to end screen)
         if self.x < 0:
             self.x = self._renderer._width
 
