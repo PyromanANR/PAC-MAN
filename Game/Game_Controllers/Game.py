@@ -77,6 +77,10 @@ class GameRenderer:
         self.add_game_object(obj)
         self._walls.append(obj)
 
+    def add_cookie(self, obj: GameObject):
+        self._game_objects.append(obj)
+        self._cookies.append(obj)
+
     # in GameRenderer class
     def add_hero(self, in_hero):
         self.add_game_object(in_hero)

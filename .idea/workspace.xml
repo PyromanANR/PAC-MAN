@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="Add Ghost to game">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/Game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/MovableObj/MovableObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/MovableObj/MovableObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/MovableObj/PacMan.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/MovableObj/PacMan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/main/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/Main.py" afterDir="false" />
-    </list>
+    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="Add Pac-Man" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,23 +34,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Main.executor": "Run",
-    "Python.test (1).executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature__branch/Nikita",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature__branch/Nikita&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\IT\Python\PAC-MAN\Game\NotMovableObj" />
@@ -145,7 +139,7 @@
       <workItem from="1707069319678" duration="21000" />
       <workItem from="1707070863783" duration="24000" />
       <workItem from="1707087496056" duration="302000" />
-      <workItem from="1707117673502" duration="5684000" />
+      <workItem from="1707117673502" duration="6304000" />
     </task>
     <task id="LOCAL-00001" summary="Start PAC-MAN">
       <option name="closed" value="true" />
@@ -179,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707129396852</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add Pac-Man">
+      <option name="closed" value="true" />
+      <created>1707132922934</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707132922934</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,7 +235,8 @@
     <MESSAGE value="Add some method to class GameRender.py" />
     <MESSAGE value="Decomposition files" />
     <MESSAGE value="Add Ghost to game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Ghost to game" />
+    <MESSAGE value="Add Pac-Man" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Pac-Man" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PAC_MAN$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1707087797764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
