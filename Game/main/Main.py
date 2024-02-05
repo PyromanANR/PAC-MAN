@@ -2,10 +2,8 @@ from Game.Game_Controllers.Game import GameRenderer
 from Game.Game_Controllers.PacmanGameController import PacmanGameController
 from Game.Game_Controllers.Translate_func import translate_maze_to_screen, unified_size
 from Game.MovableObj.Ghost import Ghost
+from Game.MovableObj.PacMan import PacMan
 from Game.NotMovableObj.Wall import Wall
-
-
-
 
 
 if __name__ == "__main__":
@@ -25,4 +23,6 @@ if __name__ == "__main__":
                       pacman_game.ghost_colors[i % 4])
         game_renderer.add_game_object(ghost)
 
+    pacman = PacMan(game_renderer, unified_size, unified_size, unified_size)
+    game_renderer.add_hero(pacman)
     game_renderer.tick(120)
