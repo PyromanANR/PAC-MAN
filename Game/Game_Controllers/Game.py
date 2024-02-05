@@ -30,21 +30,6 @@ class GameObject:
         pass
 
 
-class Wall(GameObject):
-    # Gray - in_color=(128, 128, 128)
-    def __init__(self, in_surface, x, y, in_size: int, in_color=(128, 128, 128)):
-        super().__init__(in_surface, x * in_size, y * in_size, in_size, in_color)
-
-
-class Cookie(GameObject):
-    def __init__(self):
-        self
-
-
-class Powerup(GameObject):
-    def __init__(self):
-        self
-
 
 class GameRenderer:
     def __init__(self, in_width: int, in_height: int):
@@ -58,7 +43,7 @@ class GameRenderer:
         self._game_objects = []
         self._walls = []
         self._cookies = []
-        self._hero: PacMan = None
+        self._hero = None
 
     def tick(self, in_fps: int):
         black = (0, 0, 0)
@@ -77,7 +62,7 @@ class GameRenderer:
     def add_game_object(self, obj: GameObject):
         self._game_objects.append(obj)
 
-    def add_wall(self, obj: Wall):
+    def add_wall(self, obj):
         self.add_game_object(obj)
         self._walls.append(obj)
 
@@ -85,18 +70,3 @@ class GameRenderer:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._done = True
-
-
-class MovableObject(GameObject):
-    def __init__(self):
-        self
-
-
-class PacMan(MovableObject):
-    def __init__(self):
-        self
-
-
-class Ghost(MovableObject):
-    def __init__(self):
-        self

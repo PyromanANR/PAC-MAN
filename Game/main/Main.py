@@ -1,6 +1,6 @@
-from Game.Game_Controllers.Game import GameRenderer, Wall
+from Game.Game_Controllers.Game import GameRenderer
 from Game.Game_Controllers.PacmanGameController import PacmanGameController
-
+from Game.NotMovableObj.Wall import Wall
 
 if __name__ == "__main__":
     unified_size = 40
