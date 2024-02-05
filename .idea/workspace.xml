@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="Make many changes. Release feature render walls">
-      <change afterPath="$PROJECT_DIR$/Game/MovableObj/Ghost.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game/MovableObj/MovableObject.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game/MovableObj/PacMan.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game/NotMovableObj/Cokie.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game/NotMovableObj/Unstoppability.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game/NotMovableObj/Wall.py" afterDir="false" />
+    <list default="true" id="8dedc534-1b06-4fcb-b8d0-a2d88740d175" name="Changes" comment="Decomposition files">
+      <change afterPath="$PROJECT_DIR$/Game/Game_Controllers/Direction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Game/Game_Controllers/Translate_func.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Game_Controllers/PacmanGameController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game_Controllers/PacmanGameController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/MovableObj/Ghost.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/MovableObj/Ghost.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/MovableObj/MovableObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/MovableObj/MovableObject.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/main/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/main/Main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +147,7 @@
       <workItem from="1707069319678" duration="21000" />
       <workItem from="1707070863783" duration="24000" />
       <workItem from="1707087496056" duration="302000" />
-      <workItem from="1707117673502" duration="2205000" />
+      <workItem from="1707117673502" duration="4250000" />
     </task>
     <task id="LOCAL-00001" summary="Start PAC-MAN">
       <option name="closed" value="true" />
@@ -167,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707083062519</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Decomposition files">
+      <option name="closed" value="true" />
+      <created>1707120004069</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1707120004069</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,22 +225,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start PAC-MAN" />
     <MESSAGE value="Add some method to class GameRender.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add some method to class GameRender.py" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Game/main/Main.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Decomposition files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Decomposition files" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PAC_MAN$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1707087797764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
     <SUITE FILE_PATH="coverage/PAC_MAN$test.coverage" NAME="test Coverage Results" MODIFIED="1707087677912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PAC_MAN$Main.coverage" NAME="Main Coverage Results" MODIFIED="1707119631343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
+    <SUITE FILE_PATH="coverage/PAC_MAN$Main.coverage" NAME="Main Coverage Results" MODIFIED="1707128791899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/main" />
   </component>
 </project>
