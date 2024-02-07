@@ -43,6 +43,43 @@ class Button:
         elif self.function_id == '2':
             levels_menu()
 
+WIDTH, HEIGHT = 900, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Menu")
+main_background = pygame.image.load("D:\Demo\PAC-MAN\images\\background.jpg")
+# Створення об'єкта кнопки
+exit_button = Button(375, 500, 150, 50, 'Exit', (255, 255, 255), '1', (170, 170, 170), (100, 100, 100))
+levels_button = Button(375, 430, 150, 50, 'Start', (255, 255, 255), '2', (170, 170, 170), (100, 100, 100))
 
+running = True
+while running:
+
+    font = pygame.font.SysFont(None, 72)
+    text_surface = font.render("MENU", True, (255, 255, 255))
+    text_rect = text_surface.get_rect(center=(WIDTH / 2, 80))
+
+    # Відображення зображення та тексту на фоні
+    screen.blit(main_background, (0, 0))
+    screen.blit(text_surface, text_rect)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            pygame.quit()
+            sys.exit()
+
+        # Виклик методу click кнопки
+        exit_button.click(event)
+        levels_button.click(event)
+
+    # Отримання позиції миші
+    mouse = pygame.mouse.get_pos()
+
+    # Відображення кнопки
+    exit_button.draw(screen, mouse)
+    levels_button.draw(screen, mouse)
+
+    # Оновлення дисплея
+    pygame.display.update()
 
 
