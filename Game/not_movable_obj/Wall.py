@@ -1,4 +1,4 @@
-from Game.Game_Controllers.Game import GameObject
+from Game.game_controllers.Game import GameObject
 
 
 class Wall(GameObject):

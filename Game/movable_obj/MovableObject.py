@@ -1,7 +1,7 @@
 import pygame
 
-from Game.Game_Controllers.Direction import Direction
-from Game.Game_Controllers.Game import GameObject
+from Game.game_controllers.Direction import Direction
+from Game.game_controllers.Game import GameObject
 
 
 class MovableObject(GameObject):
@@ -13,16 +13,21 @@ class MovableObject(GameObject):
         self.location_queue = []
         self.next_target = None
 
-    def set_direction(self, in_direction):
+    @property
+    def direction(self):
+        return self.current_direction, self.direction_buffer
+
+    @direction.setter
+    def direction(self, in_direction):
         self.current_direction = in_direction
         self.direction_buffer = in_direction
 
     def collides_with_wall(self, in_position):
         collision_rect = pygame.Rect(in_position[0], in_position[1], self._size, self._size)
         collides = False
-        walls = self._renderer.get_walls()
+        walls = self._renderer.walls
         for wall in walls:
-            collides = collision_rect.colliderect(wall.get_shape())
+            collides = collision_rect.colliderect(wall.shape)
             if collides: break
         return collides
 
