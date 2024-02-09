@@ -1,4 +1,4 @@
-from Game.MovableObj.MovableObject import MovableObject
+from Game.movable_obj.MovableObject import MovableObject
 
 
 class Ghost(MovableObject):
