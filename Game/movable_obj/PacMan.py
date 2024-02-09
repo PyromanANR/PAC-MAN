@@ -1,5 +1,5 @@
-from Game.Game_Controllers.Direction import Direction
-from Game.MovableObj.MovableObject import MovableObject
+from Game.game_controllers.Direction import Direction
+from Game.movable_obj.MovableObject import MovableObject
 
 
 class PacMan(MovableObject):
@@ -15,7 +15,7 @@ class PacMan(MovableObject):
         if self.x > self._renderer._width:
             self.x = 0
 
-        self.last_non_colliding_position = self.get_position()
+        self.last_non_colliding_position = self.position
 
         if self.check_collision_in_direction(self.direction_buffer)[0]:
             self.automatic_move(self.current_direction)
@@ -24,7 +24,7 @@ class PacMan(MovableObject):
             self.current_direction = self.direction_buffer
 
         if self.collides_with_wall((self.x, self.y)):
-            self.set_position(self.last_non_colliding_position[0], self.last_non_colliding_position[1])
+            self.position = self.last_non_colliding_position
 
         #self.handle_cookie_pickup()
 
@@ -34,7 +34,7 @@ class PacMan(MovableObject):
         if not desired_position_collides:
             self.last_working_direction = self.current_direction
             desired_position = collision_result[1]
-            self.set_position(desired_position[0], desired_position[1])
+            self.position = desired_position
         else:
             self.current_direction = self.last_working_direction
 

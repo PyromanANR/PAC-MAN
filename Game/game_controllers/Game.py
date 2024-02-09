@@ -1,6 +1,6 @@
 import pygame
 
-from Game.Game_Controllers.Direction import Direction
+from Game.game_controllers.Direction import Direction
 
 
 class GameObject:
@@ -32,15 +32,18 @@ class GameObject:
     def tick(self):
         pass
 
-    def get_shape(self):
+    @property
+    def shape(self):
         return self._shape
 
-    def set_position(self, in_x, in_y):
-        self.x = in_x
-        self.y = in_y
-
-    def get_position(self):
+    @property
+    def position(self):
         return (self.x, self.y)
+
+    @position.setter
+    def position(self, value):
+        self.x, self.y = value
+
 
 class GameRenderer:
     def __init__(self, in_width: int, in_height: int):
@@ -74,25 +77,41 @@ class GameRenderer:
     def add_game_object(self, obj: GameObject):
         self._game_objects.append(obj)
 
-    def add_wall(self, obj):
+    @property
+    def walls(self):
+        return self._walls
+
+    @walls.setter
+    def wall(self, obj):
         self.add_game_object(obj)
         self._walls.append(obj)
 
-    def add_cookie(self, obj: GameObject):
+    @property
+    def cookie(self):
+        return self._cookies
+
+    @cookie.setter
+    def cookie(self, obj: GameObject):
         self._game_objects.append(obj)
         self._cookies.append(obj)
 
-    def add_unstoppability(self, obj: GameObject):
+    @property
+    def unstoppability(self):
+        return self._unstoppability
+
+    @unstoppability.setter
+    def unstoppability(self, obj: GameObject):
         self._game_objects.append(obj)
         self._unstoppability.append(obj)
 
-    # in GameRenderer class
-    def add_hero(self, in_hero):
+    @property
+    def hero(self):
+        return self._hero
+
+    @hero.setter
+    def hero(self, in_hero):
         self.add_game_object(in_hero)
         self._hero = in_hero
-
-    def get_walls(self):
-        return self._walls
 
     def _handle_events(self):
         for event in pygame.event.get():
@@ -101,10 +120,10 @@ class GameRenderer:
 
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
-            self._hero.set_direction(Direction.UP)
+            self._hero.direction = Direction.UP
         elif pressed[pygame.K_LEFT]:
-            self._hero.set_direction(Direction.LEFT)
+            self._hero.direction = Direction.LEFT
         elif pressed[pygame.K_DOWN]:
-            self._hero.set_direction(Direction.DOWN)
+            self._hero.direction = Direction.DOWN
         elif pressed[pygame.K_RIGHT]:
-            self._hero.set_direction(Direction.RIGHT)
+            self._hero.direction = Direction.RIGHT
