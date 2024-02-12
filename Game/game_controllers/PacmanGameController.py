@@ -1,3 +1,4 @@
+import os
 import random
 
 from Game.game_controllers.Pathfinder import Pathfinder
@@ -43,6 +44,12 @@ class PacmanGameController:
             (255, 184, 255),
             (0, 255, 255),
             (255, 184, 82)
+        ]
+        self.ghost_colors = [
+            os.path.join('..', '..', 'images', 'ghost.png'),
+            os.path.join('..', '..', 'images', 'ghost_pink.png'),
+            os.path.join('..', '..', 'images', 'ghost_orange.png'),
+            os.path.join('..', '..', 'images', 'ghost_blue.png')
         ]
 
         self.size = (0, 0)

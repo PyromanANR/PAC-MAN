@@ -1,3 +1,5 @@
+import os
+import pygame
 from Game.game_controllers.Direction import Direction
 from Game.movable_obj.MovableObject import MovableObject
 
@@ -6,6 +8,7 @@ class PacMan(MovableObject):
     def __init__(self, in_surface, x, y, in_size: int):
         super().__init__(in_surface, x, y, in_size, (255, 255, 0), False)
         self.last_non_colliding_position = (0, 0)
+
 
     def tick(self):
         # TELEPORT(Start to end screen)
@@ -43,5 +46,11 @@ class PacMan(MovableObject):
             self.position = desired_position
         else:
             self.current_direction = self.last_working_direction
+
+
+
+
+
+
 
 

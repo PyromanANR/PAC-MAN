@@ -1,7 +1,8 @@
+import os
 import pygame
-
 from Game.game_controllers.Direction import Direction
 from Game.game_controllers.Game import GameObject
+from Game.game_controllers.Translate_func import unified_size
 
 
 class MovableObject(GameObject):
@@ -12,8 +13,7 @@ class MovableObject(GameObject):
         self.last_working_direction = Direction.NONE
         self.location_queue = []
         self.next_target = None
-
-
+        self.image = pygame.image.load(os.path.join('..', '..', 'images', 'man.png'))
 
     @property
     def direction(self):
@@ -56,3 +56,7 @@ class MovableObject(GameObject):
 
     def reached_target(self):
         pass
+
+    def draw(self):
+        self.image = pygame.transform.scale(self.image, (unified_size, unified_size))
+        self._surface.blit(self.image, self.shape)

@@ -34,6 +34,7 @@ class GameObject:
 
     @property
     def shape(self):
+        self._shape = pygame.Rect(self.x, self.y, self._size, self._size)
         return self._shape
 
     @property
