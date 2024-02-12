@@ -1,11 +1,17 @@
+import os
+
+import pygame
 from Game.game_controllers.Direction import Direction
+from Game.game_controllers.Translate_func import unified_size
 from Game.movable_obj.MovableObject import MovableObject
 
 
 class Ghost(MovableObject):
-    def __init__(self, in_surface, x, y, in_size: int, in_game_controller, in_color=(255, 0, 0)):
-        super().__init__(in_surface, x, y, in_size, in_color, False)
+    def __init__(self, in_surface, x, y, in_size: int, in_game_controller, sprite_path):
+        super().__init__(in_surface, x, y, in_size)
         self.game_controller = in_game_controller
+        self.sprite_normal = pygame.image.load(sprite_path)
+        self.sprite_fright = pygame.image.load(os.path.join('..', '..', 'images', 'ghost_fright.png'))
 
     def reached_target(self):
         if (self.x, self.y) == self.next_target:
@@ -45,4 +51,8 @@ class Ghost(MovableObject):
             self.position = self.x - 1, self.y
         elif in_direction == Direction.RIGHT:
             self.position = self.x + 1, self.y
+
+    def draw(self):
+        self.image = self.sprite_normal
+        super(Ghost, self).draw()
 
