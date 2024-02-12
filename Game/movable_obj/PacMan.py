@@ -12,8 +12,14 @@ class PacMan(MovableObject):
         if self.x < 0:
             self.x = self._renderer._width
 
+        if self.y < 0:
+            self.y = self._renderer._height
+
         if self.x > self._renderer._width:
             self.x = 0
+
+        if self.y > self._renderer._height:
+            self.y = 0
 
         self.last_non_colliding_position = self.position
 

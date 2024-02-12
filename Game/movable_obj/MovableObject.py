@@ -13,6 +13,8 @@ class MovableObject(GameObject):
         self.location_queue = []
         self.next_target = None
 
+
+
     @property
     def direction(self):
         return self.current_direction, self.direction_buffer

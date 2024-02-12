@@ -1,12 +1,35 @@
+import random
+
+from Game.game_controllers.Pathfinder import Pathfinder
+from Game.game_controllers.Translate_func import translate_screen_to_maze, translate_maze_to_screen
+from Game.movable_obj.Ghost import Ghost
+
+
 class PacmanGameController:
     def __init__(self):
         self.ascii_maze = [
-            "WWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-            "W      S   P  W G        G W",
-            "WWWWW WWWWWWWWWWWWWWWW WWWWW",
-            "WWWWW WWWWWWWWWWWWWWWW WWWWW",
-            "W    S  G    G        S    W",
-            "WWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW",
+            "WW      S   P  W G         G WW",
+            "WW WW WWW WWW WWW WWW WWW WW WW",
+            "WW WW WWW WWW WWW WWW WWW WW WW",
+            "WW    S                S     WW",
+            "WW WWW WW WWWW W WWWW WW WWW WW",
+            "WW     WW WWW  W  WWW WW     WW",
+            "WW WWW WW WWW  W  WWW WW WWW WW",
+            "WW                           WW",
+            "WW WWW WWWWWWW   WWWWWWW WWW WW",
+            "WW WWW WWWWWWW   WWWWWWW WWW WW",
+            "WW WWW WWWWWWW   WWWWWWW WWW WW",
+            "WW WWW WWWWWWW   WWWWWWW WWW WW",
+            "        S                      ",
+            "WW WW WWW WWW WWW WWW WWW WW WW",
+            "WW WW WWW WWW WWW WWW WWW WW WW",
+            "WW    S                S     WW",
+            "WW WWW WW WWW  W  WWW WW WWW WW",
+            "WW     WW WWW  W  WWW WW     WW",
+            "WW WWW WW WWWW W WWWW WW WWW WW",
+            "WW G                      G  WW",
+            "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW"
         ]
 
         self.numpy_maze = []
@@ -24,6 +47,7 @@ class PacmanGameController:
 
         self.size = (0, 0)
         self.convert_maze_to_numpy()
+        self.p = Pathfinder(self.numpy_maze)
 
     def convert_maze_to_numpy(self):
         for x, row in enumerate(self.ascii_maze):
@@ -46,3 +70,12 @@ class PacmanGameController:
                         self.unstoppability_spaces.append((y, x))
 
             self.numpy_maze.append(binary_row)
+
+    def request_new_random_path(self, in_ghost: Ghost):
+        random_space = random.choice(self.reachable_spaces)
+        current_maze_coord = translate_screen_to_maze(in_ghost.position)
+
+        path = self.p.path(current_maze_coord[1], current_maze_coord[0],
+                              random_space[1], random_space[0])
+        test_path = [translate_maze_to_screen(item) for item in path]
+        in_ghost.new_path(test_path)
