@@ -1,13 +1,13 @@
-import os
 import pygame
 from Game.game_controllers.Direction import Direction
 from Game.movable_obj.MovableObject import MovableObject
 
 
 class PacMan(MovableObject):
-    def __init__(self, in_surface, x, y, in_size: int):
+    def __init__(self, in_surface, x, y, in_size: int, image_path):
         super().__init__(in_surface, x, y, in_size, (255, 255, 0), False)
         self.last_non_colliding_position = (0, 0)
+        self.image = pygame.image.load(image_path)
 
 
     def tick(self):
@@ -46,6 +46,9 @@ class PacMan(MovableObject):
             self.position = desired_position
         else:
             self.current_direction = self.last_working_direction
+
+    def draw(self):
+        super(PacMan, self).draw()
 
 
 

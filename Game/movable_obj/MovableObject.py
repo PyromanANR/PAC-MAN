@@ -1,4 +1,3 @@
-import os
 import pygame
 from Game.game_controllers.Direction import Direction
 from Game.game_controllers.Game import GameObject
@@ -13,7 +12,7 @@ class MovableObject(GameObject):
         self.last_working_direction = Direction.NONE
         self.location_queue = []
         self.next_target = None
-        self.image = pygame.image.load(os.path.join('..', '..', 'images', 'man.png'))
+        self.image = None
 
     @property
     def direction(self):
