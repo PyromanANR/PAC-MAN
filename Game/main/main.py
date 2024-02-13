@@ -6,9 +6,12 @@ from Game.movable_obj.PacMan import PacMan
 from Game.not_movable_obj.Cookie import Cookie
 from Game.not_movable_obj.Unstoppability import Unstoppability
 from Game.not_movable_obj.Wall import Wall
-
+from Game.main.menu import Menu
 
 if __name__ == "__main__":
+    menu = Menu()
+    menu.main_menu()
+    print
     pacman_game = PacmanGameController()
     size = pacman_game.size
     actual_size = translate_maze_to_screen(size)
