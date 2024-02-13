@@ -33,10 +33,10 @@ if __name__ == "__main__":
     for i, ghost_spawn in enumerate(pacman_game.ghost_spawns):
         translated = translate_maze_to_screen(ghost_spawn)
         ghost = Ghost(game_renderer, translated[0], translated[1], unified_size, pacman_game,
-                      pacman_game.ghost_colors[i % 4])
+                      pacman_game.ghost_colors[i % 4], pacman_game.ghost_sprite_fright)
         game_renderer.add_game_object(ghost)
 
     translated = translate_maze_to_screen(pacman_game.hero_position[0])
-    pacman = PacMan(game_renderer,  translated[0],  translated[1], unified_size)
+    pacman = PacMan(game_renderer,  translated[0],  translated[1], unified_size, pacman_game.pac_man_image)
     game_renderer.hero = pacman
     game_renderer.tick(120)
