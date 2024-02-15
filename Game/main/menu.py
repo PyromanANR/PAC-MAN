@@ -20,7 +20,7 @@ class Menu:
         self.running = False
         pygame.quit()
 
-    def create_menu(self, title, buttons, draw_with_images=False):
+    def create_menu(self, title, buttons):
         WIDTH, HEIGHT = 900, 600
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(title)
@@ -37,7 +37,7 @@ class Menu:
 
             mouse = pygame.mouse.get_pos()
             for button in buttons:
-                if draw_with_images:
+                if button.image_path != None:
                     button.draw_with_images(screen, mouse)
                 else:
                     button.draw(screen, mouse)
@@ -55,23 +55,24 @@ class Menu:
                 pygame.display.update()
 
     def main_menu(self):
-        exit_button = Button(375, 500, 150, 50, 'Exit', (255, 255, 255), sys.exit, (170, 170, 170), (100, 100, 100),
-                             self)
+        exit_button = Button(375, 500, 150, 50, 'Exit', (255, 255, 255), sys.exit, (170, 170, 170),
+                             (100, 100, 100), self)
         levels_button = Button(375, 430, 150, 50, 'Start', (255, 255, 255), self.levels_menu, (170, 170, 170),
                                (100, 100, 100), self)
         self.create_menu("Menu", [exit_button, levels_button])
 
     def levels_menu(self):
         level2_button = Button(375, 500, 150, 50, 'Level 2', (255, 255, 255), lambda: setattr(self, 'levelId', 2),
-                               (170, 170, 170), (100, 100, 100), self)
+                               (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
         level1_button = Button(375, 430, 150, 50, 'Level 1', (255, 255, 255), lambda: setattr(self, 'levelId', 1),
-                               (170, 170, 170), (100, 100, 100), self)
-
-        self.create_menu("Choose a level", [level1_button, level2_button], draw_with_images=True)
+                               (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
+        back_button = Button(50, 50, 150, 50, 'Back', (255, 255, 255), self.main_menu, (170, 170, 170),
+                             (100, 100, 100), self)
+        self.create_menu("Choose a level", [level1_button, level2_button, back_button])
 
 
 class Button:
-    def __init__(self, x, y, width, height, text, text_color, function, color_light, color_dark, menu):
+    def __init__(self, x, y, width, height, text, text_color, function, color_light, color_dark, menu, image_path=None):
         self.x = x
         self.y = y
         self.width = width
@@ -83,6 +84,7 @@ class Button:
         self.color_dark = color_dark
         self.current_color = self.color_dark
         self.font = pygame.font.SysFont('Corbel', 35)
+        self.image_path = image_path
         self.menu: Menu = menu
 
     def draw(self, screen, mouse):
@@ -100,11 +102,7 @@ class Button:
     def draw_with_images(self, screen, mouse):
         if self.x <= mouse[0] <= self.x + self.width and self.y <= mouse[1] <= self.y + self.height:
             self.current_color = self.color_light
-            if self.current_color == '2':
-                image_path = os.path.join('..', '..', 'images', 'level1.png')
-            else:
-                image_path = os.path.join('..', '..', 'images', 'level1.png')
-            image = pygame.image.load(image_path)  # Завантажте малюнок
+            image = pygame.image.load(self.image_path)  # Завантажте малюнок
             screen.blit(image, (100, 200))
         else:
             self.current_color = self.color_dark
