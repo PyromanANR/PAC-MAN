@@ -62,9 +62,9 @@ class Menu:
         self.create_menu("Menu", [exit_button, levels_button])
 
     def levels_menu(self):
-        level2_button = Button(375, 500, 150, 50, 'Level 2', (255, 255, 255), lambda: setattr(self, 'levelId', 2),
+        level2_button = Button(375, 500, 150, 50, 'Level 2', (255, 255, 255), lambda: setattr(self, 'levelId', 1),
                                (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
-        level1_button = Button(375, 430, 150, 50, 'Level 1', (255, 255, 255), lambda: setattr(self, 'levelId', 1),
+        level1_button = Button(375, 430, 150, 50, 'Level 1', (255, 255, 255), lambda: setattr(self, 'levelId', 0),
                                (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
         back_button = Button(50, 50, 150, 50, 'Back', (255, 255, 255), self.main_menu, (170, 170, 170),
                              (100, 100, 100), self)

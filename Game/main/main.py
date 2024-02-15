@@ -12,8 +12,7 @@ import os
 if __name__ == "__main__":
     menu = Menu()
     menu.main_menu()
-
-    pacman_game = PacmanGameController()
+    pacman_game = PacmanGameController(menu.levelId)
     size = pacman_game.size
     actual_size = translate_maze_to_screen(size)
     game_renderer = GameRenderer(actual_size[0], actual_size[1])

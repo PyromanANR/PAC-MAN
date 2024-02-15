@@ -7,8 +7,9 @@ from Game.movable_obj.Ghost import Ghost
 
 
 class PacmanGameController:
-    def __init__(self):
+    def __init__(self, levelId):
         self.ascii_maze = [
+            [
             "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW",
             "WW      S   P  W G         G WW",
             "WW WW WWW WWW WWW WWW WWW WW WW",
@@ -31,6 +32,23 @@ class PacmanGameController:
             "WW WWW WW WWWW W WWWW WW WWW WW",
             "WW G                      G  WW",
             "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW"
+            ],
+            [
+                "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW",
+                "WW      S   P  W G         G WW",
+                "WW WW WWW WWW WWW WWW WWW WW WW",
+                "WW WW WWW WWW WWW WWW WWW WW WW",
+                "WW    S                S     WW",
+                "WW WWW WW WWWW W WWWW WW WWW WW",
+                "WW     WW WWW  W  WWW WW     WW",
+                "WW WWW WW WWW  W  WWW WW WWW WW",
+                "WW                           WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW"
+            ],
         ]
 
         self.numpy_maze = []
@@ -54,11 +72,11 @@ class PacmanGameController:
         self.ghost_sprite_fright = os.path.join('..', '..', 'images', 'ghost_fright.png')
         self.pac_man_image = os.path.join('..', '..', 'images', 'man.png')
         self.size = (0, 0)
-        self.convert_maze_to_numpy()
+        self.convert_maze_to_numpy(levelId)
         self.p = Pathfinder(self.numpy_maze)
 
-    def convert_maze_to_numpy(self):
-        for x, row in enumerate(self.ascii_maze):
+    def convert_maze_to_numpy(self, id):
+        for x, row in enumerate(self.ascii_maze[id]):
             self.size = (len(row), x + 1)
             binary_row = []
             for y, column in enumerate(row):
