@@ -63,10 +63,10 @@ class Menu:
 
     def levels_menu(self):
         level2_button = Button(375, 500, 150, 50, 'Level 2', (255, 255, 255), lambda: setattr(self, 'levelId', 1),
-                               (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
+                               (170, 170, 170), (100, 100, 100), self, '..\..\images\level2.png')
         level1_button = Button(375, 430, 150, 50, 'Level 1', (255, 255, 255), lambda: setattr(self, 'levelId', 0),
                                (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
-        back_button = Button(50, 50, 150, 50, 'Back', (255, 255, 255), self.main_menu, (170, 170, 170),
+        back_button = Button(30, 30, 80, 50, 'Back', (255, 255, 255), self.main_menu, (170, 170, 170),
                              (100, 100, 100), self)
         self.create_menu("Choose a level", [level1_button, level2_button, back_button])
 
@@ -103,7 +103,7 @@ class Button:
         if self.x <= mouse[0] <= self.x + self.width and self.y <= mouse[1] <= self.y + self.height:
             self.current_color = self.color_light
             image = pygame.image.load(self.image_path)  # Завантажте малюнок
-            screen.blit(image, (100, 200))
+            screen.blit(image, (205, 50))
         else:
             self.current_color = self.color_dark
 
