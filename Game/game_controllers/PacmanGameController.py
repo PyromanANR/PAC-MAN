@@ -77,7 +77,6 @@ class PacmanGameController:
             os.path.join('..', '..', 'images', 'ghost_blue.png')
         ]
         self.ghost_sprite_fright = os.path.join('..', '..', 'images', 'ghost_fright.png')
-        self.pac_man_image = os.path.join('..', '..', 'images', 'man.png')
         self.size = (0, 0)
         self.convert_maze_to_numpy(levelId)
         self.p = Pathfinder(self.numpy_maze)
