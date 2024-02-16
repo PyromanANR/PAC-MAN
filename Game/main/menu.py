@@ -1,6 +1,7 @@
 import pygame
 import sys
 import os
+from Game.main.button import Button
 
 pygame.init()
 
@@ -55,65 +56,20 @@ class Menu:
                 pygame.display.update()
 
     def main_menu(self):
-        exit_button = Button(375, 500, 150, 50, 'Exit', (255, 255, 255), sys.exit, (170, 170, 170),
-                             (100, 100, 100), self)
-        levels_button = Button(375, 430, 150, 50, 'Start', (255, 255, 255), self.levels_menu, (170, 170, 170),
-                               (100, 100, 100), self)
+        exit_button = Button(375, 500, 150, 50, 'Exit', (255, 255, 255), sys.exit, (204, 0, 0),
+                             (0, 0, 0))
+        levels_button = Button(375, 430, 150, 50, 'Start', (255, 255, 255), self.levels_menu, (147, 196, 125),
+                               (0, 0, 0))
         self.create_menu("Menu", [exit_button, levels_button])
 
     def levels_menu(self):
         level2_button = Button(375, 500, 150, 50, 'Level 2', (255, 255, 255), lambda: setattr(self, 'levelId', 1),
-                               (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
+                               (170, 170, 170), (0, 0, 0), '..\..\images\level2.png')
         level1_button = Button(375, 430, 150, 50, 'Level 1', (255, 255, 255), lambda: setattr(self, 'levelId', 0),
-                               (170, 170, 170), (100, 100, 100), self, '..\..\images\level1.png')
-        back_button = Button(50, 50, 150, 50, 'Back', (255, 255, 255), self.main_menu, (170, 170, 170),
-                             (100, 100, 100), self)
+                               (170, 170, 170), (0, 0, 0), '..\..\images\level1.png')
+        back_button = Button(15, 15, 40, 40, '<-', (255, 255, 255), self.main_menu, (170, 170, 170),
+                             (0, 0, 0))
         self.create_menu("Choose a level", [level1_button, level2_button, back_button])
 
 
-class Button:
-    def __init__(self, x, y, width, height, text, text_color, function, color_light, color_dark, menu, image_path=None):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.text = text
-        self.text_color = text_color
-        self.function = function
-        self.color_light = color_light
-        self.color_dark = color_dark
-        self.current_color = self.color_dark
-        self.font = pygame.font.SysFont('Corbel', 35)
-        self.image_path = image_path
-        self.menu: Menu = menu
 
-    def draw(self, screen, mouse):
-        if self.x <= mouse[0] <= self.x + self.width and self.y <= mouse[1] <= self.y + self.height:
-            self.current_color = self.color_light
-        else:
-            self.current_color = self.color_dark
-
-        pygame.draw.rect(screen, self.current_color, [self.x, self.y, self.width, self.height])
-
-        text = self.font.render(self.text, True, self.text_color)
-        screen.blit(text, (
-            self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
-
-    def draw_with_images(self, screen, mouse):
-        if self.x <= mouse[0] <= self.x + self.width and self.y <= mouse[1] <= self.y + self.height:
-            self.current_color = self.color_light
-            image = pygame.image.load(self.image_path)  # Завантажте малюнок
-            screen.blit(image, (100, 200))
-        else:
-            self.current_color = self.color_dark
-
-        pygame.draw.rect(screen, self.current_color, [self.x, self.y, self.width, self.height])
-
-        text = self.font.render(self.text, True, self.text_color)
-        screen.blit(text, (
-            self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
-
-    def click(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.x <= event.pos[0] <= self.x + self.width and self.y <= event.pos[1] <= self.y + self.height:
-                self.function()
