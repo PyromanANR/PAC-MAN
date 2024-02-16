@@ -7,7 +7,6 @@ from Game.not_movable_obj.Cookie import Cookie
 from Game.not_movable_obj.Unstoppability import Unstoppability
 from Game.not_movable_obj.Wall import Wall
 from Game.main.menu import Menu
-import os
 
 if __name__ == "__main__":
     menu = Menu()

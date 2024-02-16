@@ -1,6 +1,4 @@
 import pygame
-from Game.main.button import Button
-from Game.main.menu import Menu
 from Game.game_controllers.Direction import Direction
 
 
@@ -61,9 +59,6 @@ class GameRenderer:
         self._cookies = []
         self._unstoppability = []
         self._hero = None
-        self.menu = Menu()
-        self.back_button = Button(15, 15, 40, 40, '<-', (255, 255, 255), self.menu.main_menu, (170, 170, 170),
-                             (0, 0, 0))
 
     def tick(self, in_fps: int):
         black = (0, 0, 0)
@@ -75,8 +70,6 @@ class GameRenderer:
                 game_object.tick()
                 game_object.draw()
 
-            mouse = pygame.mouse.get_pos()
-            self.back_button.draw(self._screen, mouse)
             pygame.display.flip()
             self._clock.tick(in_fps)
             self._handle_events()
@@ -126,7 +119,6 @@ class GameRenderer:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._done = True
-            self.back_button.click(event)
 
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
