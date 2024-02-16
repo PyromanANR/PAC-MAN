@@ -4,10 +4,13 @@ from Game.movable_obj.MovableObject import MovableObject
 
 
 class PacMan(MovableObject):
-    def __init__(self, in_surface, x, y, in_size: int, image_path):
+    def __init__(self, in_surface, x, y, in_size: int):
         super().__init__(in_surface, x, y, in_size, (255, 255, 0), False)
         self.last_non_colliding_position = (0, 0)
-        self.image = pygame.image.load(image_path)
+        self.open = pygame.image.load("..\..\images\paku.png")
+        self.closed = pygame.image.load("..\..\images\man.png")
+        self.image = self.open
+        self.mouth_open = True
 
 
     def tick(self):
@@ -48,6 +51,8 @@ class PacMan(MovableObject):
             self.current_direction = self.last_working_direction
 
     def draw(self):
+        #self.image = self.open if self.mouth_open else self.closed
+        #self.image = pygame.transform.rotate(self.image, self.current_direction.value)
         super(PacMan, self).draw()
 
 
