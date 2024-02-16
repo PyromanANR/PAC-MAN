@@ -1,5 +1,7 @@
 import pygame
 from Game.game_controllers.Direction import Direction
+from Game.main.button import Button
+from Game.main.menu import Menu
 
 
 class GameObject:
@@ -54,6 +56,9 @@ class GameRenderer:
         pygame.display.set_caption('Pacman')
         self._clock = pygame.time.Clock()
         self._done = False
+        self._menu: Menu = Menu()
+        self._button: Button = Button(375, 430, 150, 50, 'Go back', (255, 255, 255), lambda: setattr(self, '_done', True), (147, 196, 125),
+                                      (0, 0, 0))
         self._game_objects = []
         self._walls = []
         self._cookies = []
@@ -63,21 +68,39 @@ class GameRenderer:
     def tick(self, in_fps: int):
         black = (0, 0, 0)
 
-        while not self._done:
+        while not self.done:
             self._screen.fill(black)
 
             for game_object in self._game_objects:
                 game_object.tick()
                 game_object.draw()
 
+            mouse = pygame.mouse.get_pos()
+            self._button.draw(self._screen, mouse)
             pygame.display.flip()
             self._clock.tick(in_fps)
             self._handle_events()
 
         print("Game over")
+        self._menu.levels_menu()
+        self.restart_game()
+
+    def restart_game(self):
+        from Game.main.initialization import Initialization
+        game = Initialization(self._menu.levelId)
+        game.create_game()
+
 
     def add_game_object(self, obj: GameObject):
         self._game_objects.append(obj)
+
+    @property
+    def done(self) -> bool:
+        return self._done
+
+    @done.setter
+    def done(self, value: bool):
+        self._done = value
 
     @property
     def walls(self):
@@ -118,7 +141,8 @@ class GameRenderer:
     def _handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self._done = True
+                self.done = True
+            self._button.click(event)
 
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
