@@ -43,3 +43,4 @@ if __name__ == "__main__":
     pacman = PacMan(game_renderer,  translated[0],  translated[1], unified_size)
     game_renderer.hero = pacman
     game_renderer.tick(120)
+
