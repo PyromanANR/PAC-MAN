@@ -25,8 +25,8 @@ class Pinky(Ghost):
         x, y = character_position
 
         # along radius 2
-        for dx in range(-2, 3):
-            for dy in range(-2, 3):
+        for dx in range(-3, 4):
+            for dy in range(-3, 4):
                 if abs(dx) + abs(dy) == 2:
                     new_x, new_y = x + dx, y + dy
                     if 0 <= new_x < len(maze[0]) and 0 <= new_y < len(maze):

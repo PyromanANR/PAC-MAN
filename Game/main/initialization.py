@@ -44,7 +44,7 @@ class Initialization:
             if i in ghost_classes:
                 ghost = ghost_classes[i](game_renderer, translated[0], translated[1], unified_size, pacman_game,
                                          pacman_game.ghost_colors[i % 4], pacman_game.ghost_sprite_fright)
-                game_renderer.add_game_object(ghost)
+                game_renderer.ghost = ghost
 
         translated = translate_maze_to_screen(pacman_game.hero_position[0])
         pacman = PacMan(game_renderer, translated[0], translated[1], unified_size)

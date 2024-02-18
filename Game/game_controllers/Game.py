@@ -66,6 +66,7 @@ class GameRenderer:
         self._walls = []
         self._cookies = []
         self._unstoppability = []
+        self._ghost = []
         self._hero = None
         self._current_mode = GhostBehaviour.AGGRESSIVE
         self._mode_switch = pygame.USEREVENT + 1
@@ -122,6 +123,15 @@ class GameRenderer:
     def wall(self, obj):
         self.add_game_object(obj)
         self._walls.append(obj)
+
+    @property
+    def ghost(self):
+        return self._ghost
+
+    @ghost.setter
+    def ghost(self, obj):
+        self.add_game_object(obj)
+        self._ghost.append(obj)
 
     @property
     def cookie(self):

@@ -10,28 +10,28 @@ class PacmanGameController:
     def __init__(self, levelId):
         self.ascii_maze = [
             [
-            "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW",
-            "WW      S   P  W G         G WW",
-            "WW WW WWW WWW WWW WWW WWW WW WW",
-            "WW WW WWW WWW WWW WWW WWW WW WW",
-            "WW    S                S     WW",
-            "WW WWW WW WWWW W WWWW WW WWW WW",
-            "WW     WW WWW  W  WWW WW     WW",
-            "WW WWW WW WWW  W  WWW WW WWW WW",
-            "WW                           WW",
-            "WW WWW WWWWWWW   WWWWWWW WWW WW",
-            "WW WWW WWWWWWW   WWWWWWW WWW WW",
-            "WW WWW WWWWWWW   WWWWWWW WWW WW",
-            "WW WWW WWWWWWW   WWWWWWW WWW WW",
-            "        S                      ",
-            "WW WW WWW WWW WWW WWW WWW WW WW",
-            "WW WW WWW WWW WWW WWW WWW WW WW",
-            "WW    S                S     WW",
-            "WW WWW WW WWW  W  WWW WW WWW WW",
-            "WW     WW WWW  W  WWW WW     WW",
-            "WW WWW WW WWWW W WWWW WW WWW WW",
-            "WW G                      G  WW",
-            "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW"
+                "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW",
+                "WW      S   P  W G         G WW",
+                "WW WW WWW WWW WWW WWW WWW WW WW",
+                "WW WW WWW WWW WWW WWW WWW WW WW",
+                "WW    S                S     WW",
+                "WW WWW WW WWWW W WWWW WW WWW WW",
+                "WW     WW WWWW W WWWW WW     WW",
+                "WW WWW WW WWWW W WWWW WW WWW WW",
+                "WW                           WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "        S                      ",
+                "WW WW WWW WWW WWW WWW WWW WW WW",
+                "WW WW WWW WWW WWW WWW WWW WW WW",
+                "WW    S                S     WW",
+                "WW WWW WW WWWW W WWWW WW WWW WW",
+                "WW     WW WWWW W WWWW WW     WW",
+                "WW WWW WW WWWW W WWWW WW WWW WW",
+                "WW G                      G  WW",
+                "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW"
             ],
             [
                 "WWWWWWWWWW WWWWWWWWWWW WWWWWWWWWW",
@@ -86,11 +86,6 @@ class PacmanGameController:
             self.size = (len(row), x + 1)
             binary_row = []
             for y, column in enumerate(row):
-                if column == "P":
-                    self.hero_position.append((y, x))
-
-                if column == "G":
-                    self.ghost_spawns.append((y, x))
 
                 if column == "W":
                     binary_row.append(0)
@@ -100,6 +95,13 @@ class PacmanGameController:
                     self.reachable_spaces.append((y, x))
                     if column == "S":
                         self.unstoppability_spaces.append((y, x))
+                        self.reachable_spaces.append((y, x))
+                    if column == "P":
+                        self.hero_position.append((y, x))
+                        self.reachable_spaces.append((y, x))
+                    if column == "G":
+                        self.ghost_spawns.append((y, x))
+                        self.reachable_spaces.append((y, x))
 
             self.numpy_maze.append(binary_row)
 
@@ -108,6 +110,6 @@ class PacmanGameController:
         current_maze_coord = translate_screen_to_maze(in_ghost.position)
 
         path = self.p.path(current_maze_coord[1], current_maze_coord[0],
-                              random_space[1], random_space[0])
+                           random_space[1], random_space[0])
         test_path = [translate_maze_to_screen(item) for item in path]
         in_ghost.new_path(test_path)
