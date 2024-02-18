@@ -7,6 +7,7 @@ from Game.movable_obj.Ghosts.Clyde import Clyde
 from Game.movable_obj.Ghosts.Inky import Inky
 from Game.movable_obj.Ghosts.Pinky import Pinky
 from Game.movable_obj.PacMan import PacMan
+from Game.not_movable_obj.Cell import Cell
 from Game.not_movable_obj.Cookie import Cookie
 from Game.not_movable_obj.Unstoppability import Unstoppability
 from Game.not_movable_obj.Wall import Wall
@@ -24,7 +25,7 @@ class Initialization:
 
         for y, row in enumerate(pacman_game.numpy_maze):
             for x, column in enumerate(row):
-                if column == 0:
+                if column == 0 and (x, y) not in pacman_game.cell_spaces:
                     game_renderer.wall = Wall(game_renderer, x, y, unified_size)
 
         for cookie_space in pacman_game.cookie_spaces:
@@ -36,6 +37,11 @@ class Initialization:
             translated = translate_maze_to_screen(unstoppability_space)
             unstop = Unstoppability(game_renderer, translated[0] + unified_size / 2, translated[1] + unified_size / 2)
             game_renderer.unstoppability = unstop
+
+        for cell_spaces in pacman_game.cell_spaces:
+            translated = translate_maze_to_screen(cell_spaces)
+            cell = Cell(game_renderer, translated[0], translated[1], unified_size)
+            game_renderer.cell = cell
 
         ghost_classes = {0: Blinky, 1: Pinky, 2: Clyde, 3: Inky}
 

@@ -64,6 +64,7 @@ class GameRenderer:
                                       (0, 0, 0))
         self._game_objects = []
         self._walls = []
+        self._cells = []
         self._cookies = []
         self._unstoppability = []
         self._ghost = []
@@ -123,6 +124,15 @@ class GameRenderer:
     def wall(self, obj):
         self.add_game_object(obj)
         self._walls.append(obj)
+
+    @property
+    def cell(self):
+        return self._cells
+
+    @cell.setter
+    def cell(self, obj):
+        self.add_game_object(obj)
+        self._cells.append(obj)
 
     @property
     def ghost(self):

@@ -1,6 +1,8 @@
 import os
 import random
 
+import pygame
+
 from Game.game_controllers.Pathfinder import Pathfinder
 from Game.game_controllers.Translate_func import translate_screen_to_maze, translate_maze_to_screen
 from Game.movable_obj.Ghost import Ghost
@@ -19,10 +21,10 @@ class PacmanGameController:
                 "WW     WW WWWW W WWWW WW     WW",
                 "WW WWW WW WWWW W WWWW WW WWW WW",
                 "WW                           WW",
-                "WW WWW WWWWWWW   WWWWWWW WWW WW",
-                "WW WWW WWWWWWW   WWWWWWW WWW WW",
-                "WW WWW WWWWWWW   WWWWWWW WWW WW",
-                "WW WWW WWWWWWW   WWWWWWW WWW WW",
+                "WW WWW WWWWWWWCCCWWWWWWW WWW WW",
+                "WW WWW WWWWWWWCCCWWWWWWW WWW WW",
+                "WW WWW WWWWWWWCCCWWWWWWW WWW WW",
+                "WW WWW WWWWWWWWWWWWWWWWW WWW WW",
                 "        S                      ",
                 "WW WW WWW WWW WWW WWW WWW WW WW",
                 "WW WW WWW WWW WWW WWW WWW WW WW",
@@ -42,10 +44,10 @@ class PacmanGameController:
                 "WWW W   W   W   W   W   W  SW WWW",
                 "    W W W WWWWW W WWWWW W WWW    ",
                 "WWW W W  G  W       W         WWW",
-                "WWW W W WWW W W   W W WWW WWW WWW",
-                "W       W     W   W     W   W   W",
-                "W WWW WWW WWW W   W WWW WWW W W W",
-                "W  SW       W W   W W       W W W",
+                "WWW W W WWW W WCCCW W WWW WWW WWW",
+                "W       W     WCCCW     W   W   W",
+                "W WWW WWW WWW WCCCW WWW WWW W W W",
+                "W  SW       W WWWWW W       W W W",
                 "W W W WWWWW W WWWWW W WWWWW W W W",
                 "W W W W   W W            W    W W",
                 "  W     W     WWWWWWW W    W     ",
@@ -62,6 +64,7 @@ class PacmanGameController:
         self.hero_position = []
         self.cookie_spaces = []
         self.reachable_spaces = []
+        self.cell_spaces = []
         self.unstoppability_spaces = []
         self.ghost_spawns = []
         self.ghost_colors = [
@@ -89,6 +92,9 @@ class PacmanGameController:
 
                 if column == "W":
                     binary_row.append(0)
+                elif column == "C":
+                    binary_row.append(0)
+                    self.cell_spaces.append((y, x))
                 else:
                     binary_row.append(1)
                     self.cookie_spaces.append((y, x))
