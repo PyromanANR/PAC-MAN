@@ -1,13 +1,9 @@
 from enum import Enum
 import pygame
 from Game.game_controllers.Direction import Direction
+from Game.game_controllers.GhostBehaviour import GhostBehaviour
 from Game.main.button import Button
 from Game.main.menu import Menu
-
-
-class GhostBehaviour(Enum):
-    PEACEFUL = 1
-    AGGRESSIVE = 2
 
 
 class GameObject:
@@ -71,13 +67,12 @@ class GameRenderer:
         self._cookies = []
         self._unstoppability = []
         self._hero = None
-        self._current_mode = GhostBehaviour.PEACEFUL
+        self._current_mode = GhostBehaviour.AGGRESSIVE
         self._mode_switch = pygame.USEREVENT + 1
 
     def tick(self, in_fps: int):
         black = (0, 0, 0)
-
-        pygame.time.set_timer(self._mode_switch, 10000)  # 10c
+        self.handle_mode_switch()
         while not self.done:
             self._screen.fill(black)
 
@@ -155,6 +150,9 @@ class GameRenderer:
         self.add_game_object(in_hero)
         self._hero = in_hero
 
+    def hero_position(self):
+        return self._hero.position if self._hero is not None else (0, 0)
+
     def _handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -162,7 +160,7 @@ class GameRenderer:
 
             if event.type == self._mode_switch:
                 self.handle_mode_switch()
-                
+
             self._button.click(event)
 
         pressed = pygame.key.get_pressed()
@@ -178,6 +176,8 @@ class GameRenderer:
     def handle_mode_switch(self):
         if self.current_mode == GhostBehaviour.PEACEFUL:
             self.current_mode = GhostBehaviour.AGGRESSIVE
-        elif self.current_mode == GhostBehaviour.AGGRESSIVE:
+        else:
             self.current_mode = GhostBehaviour.PEACEFUL
+        used_timing = 8 if self.current_mode == GhostBehaviour.PEACEFUL else 20
+        pygame.time.set_timer(self._mode_switch, 1000 * used_timing)
         print(f"Current mode: {str(self.current_mode)}")
