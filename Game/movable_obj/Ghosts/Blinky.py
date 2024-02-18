@@ -10,13 +10,14 @@ class Blinky(Ghost):
         self.path_built = False
 
     def calculate_direction_to_next_target(self) -> Direction:
-        if self._renderer.current_mode == GhostBehaviour.AGGRESSIVE and not self.path_built:
-            self.location_queue.clear()
-            self.path_built = True
-            self.request_path_to_player()
-        if self._renderer.current_mode == GhostBehaviour.AGGRESSIVE and self.next_target is None:
-            self.request_path_to_player()
-        if self._renderer.current_mode == GhostBehaviour.PEACEFUL:
+        if self._renderer.current_mode == GhostBehaviour.AGGRESSIVE:
+            if not self.path_built:
+                self.location_queue.clear()
+                self.path_built = True
+                self.request_path_to_player()
+            elif self.next_target is None:
+                self.request_path_to_player()
+        elif self._renderer.current_mode == GhostBehaviour.PEACEFUL:
             self.path_built = False
         return super(Blinky, self).calculate_direction_to_next_target()
 

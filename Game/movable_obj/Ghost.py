@@ -40,6 +40,9 @@ class Ghost(MovableObject):
         self.game_controller.request_new_random_path(self)
         return Direction.NONE
 
+    def request_path_to_player(self):
+        pass
+
     def automatic_move(self, in_direction: Direction):
         if in_direction == Direction.UP:
             self.position = self.x, self.y - 1
