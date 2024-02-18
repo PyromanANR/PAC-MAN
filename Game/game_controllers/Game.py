@@ -1,7 +1,13 @@
+from enum import Enum
 import pygame
 from Game.game_controllers.Direction import Direction
 from Game.main.button import Button
 from Game.main.menu import Menu
+
+
+class GhostBehaviour(Enum):
+    PEACEFUL = 1
+    AGGRESSIVE = 2
 
 
 class GameObject:
@@ -57,17 +63,21 @@ class GameRenderer:
         self._clock = pygame.time.Clock()
         self._done = False
         self._menu: Menu = Menu()
-        self._button: Button = Button(375, 430, 150, 50, 'Go back', (255, 255, 255), lambda: setattr(self, '_done', True), (147, 196, 125),
+        self._button: Button = Button(375, 430, 150, 50, 'Go back', (255, 255, 255),
+                                      lambda: setattr(self, '_done', True), (147, 196, 125),
                                       (0, 0, 0))
         self._game_objects = []
         self._walls = []
         self._cookies = []
         self._unstoppability = []
         self._hero = None
+        self._current_mode = GhostBehaviour.PEACEFUL
+        self._mode_switch = pygame.USEREVENT + 1
 
     def tick(self, in_fps: int):
         black = (0, 0, 0)
 
+        pygame.time.set_timer(self._mode_switch, 10000)  # 10c
         while not self.done:
             self._screen.fill(black)
 
@@ -90,7 +100,6 @@ class GameRenderer:
         game = Initialization(self._menu.levelId)
         game.create_game()
 
-
     def add_game_object(self, obj: GameObject):
         self._game_objects.append(obj)
 
@@ -101,6 +110,14 @@ class GameRenderer:
     @done.setter
     def done(self, value: bool):
         self._done = value
+
+    @property
+    def current_mode(self):
+        return self._current_mode
+
+    @current_mode.setter
+    def current_mode(self, value):
+        self._current_mode = value
 
     @property
     def walls(self):
@@ -142,6 +159,10 @@ class GameRenderer:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.done = True
+
+            if event.type == self._mode_switch:
+                self.handle_mode_switch()
+                
             self._button.click(event)
 
         pressed = pygame.key.get_pressed()
@@ -153,3 +174,10 @@ class GameRenderer:
             self._hero.direction = Direction.DOWN
         elif pressed[pygame.K_RIGHT]:
             self._hero.direction = Direction.RIGHT
+
+    def handle_mode_switch(self):
+        if self.current_mode == GhostBehaviour.PEACEFUL:
+            self.current_mode = GhostBehaviour.AGGRESSIVE
+        elif self.current_mode == GhostBehaviour.AGGRESSIVE:
+            self.current_mode = GhostBehaviour.PEACEFUL
+        print(f"Current mode: {str(self.current_mode)}")

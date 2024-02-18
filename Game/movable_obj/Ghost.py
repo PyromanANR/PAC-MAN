@@ -53,4 +53,3 @@ class Ghost(MovableObject):
     def draw(self):
         self.image = self.sprite_normal
         super(Ghost, self).draw()
-
