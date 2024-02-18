@@ -1,5 +1,7 @@
+from enum import Enum
 import pygame
 from Game.game_controllers.Direction import Direction
+from Game.game_controllers.GhostBehaviour import GhostBehaviour
 from Game.main.button import Button
 from Game.main.menu import Menu
 
@@ -57,17 +59,22 @@ class GameRenderer:
         self._clock = pygame.time.Clock()
         self._done = False
         self._menu: Menu = Menu()
-        self._button: Button = Button(375, 430, 150, 50, 'Go back', (255, 255, 255), lambda: setattr(self, '_done', True), (147, 196, 125),
+        self._button: Button = Button(375, 430, 150, 50, 'Go back', (255, 255, 255),
+                                      lambda: setattr(self, '_done', True), (147, 196, 125),
                                       (0, 0, 0))
         self._game_objects = []
         self._walls = []
+        self._cells = []
         self._cookies = []
         self._unstoppability = []
+        self._ghost = []
         self._hero = None
+        self._current_mode = GhostBehaviour.AGGRESSIVE
+        self._mode_switch = pygame.USEREVENT + 1
 
     def tick(self, in_fps: int):
         black = (0, 0, 0)
-
+        self.handle_mode_switch()
         while not self.done:
             self._screen.fill(black)
 
@@ -90,7 +97,6 @@ class GameRenderer:
         game = Initialization(self._menu.levelId)
         game.create_game()
 
-
     def add_game_object(self, obj: GameObject):
         self._game_objects.append(obj)
 
@@ -103,6 +109,14 @@ class GameRenderer:
         self._done = value
 
     @property
+    def current_mode(self):
+        return self._current_mode
+
+    @current_mode.setter
+    def current_mode(self, value):
+        self._current_mode = value
+
+    @property
     def walls(self):
         return self._walls
 
@@ -110,6 +124,24 @@ class GameRenderer:
     def wall(self, obj):
         self.add_game_object(obj)
         self._walls.append(obj)
+
+    @property
+    def cell(self):
+        return self._cells
+
+    @cell.setter
+    def cell(self, obj):
+        self.add_game_object(obj)
+        self._cells.append(obj)
+
+    @property
+    def ghost(self):
+        return self._ghost
+
+    @ghost.setter
+    def ghost(self, obj):
+        self.add_game_object(obj)
+        self._ghost.append(obj)
 
     @property
     def cookie(self):
@@ -138,10 +170,17 @@ class GameRenderer:
         self.add_game_object(in_hero)
         self._hero = in_hero
 
+    def hero_position(self):
+        return self._hero.position if self._hero is not None else (0, 0)
+
     def _handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.done = True
+
+            if event.type == self._mode_switch:
+                self.handle_mode_switch()
+
             self._button.click(event)
 
         pressed = pygame.key.get_pressed()
@@ -153,3 +192,12 @@ class GameRenderer:
             self._hero.direction = Direction.DOWN
         elif pressed[pygame.K_RIGHT]:
             self._hero.direction = Direction.RIGHT
+
+    def handle_mode_switch(self):
+        if self.current_mode == GhostBehaviour.PEACEFUL:
+            self.current_mode = GhostBehaviour.AGGRESSIVE
+        else:
+            self.current_mode = GhostBehaviour.PEACEFUL
+        used_timing = 8 if self.current_mode == GhostBehaviour.PEACEFUL else 20
+        pygame.time.set_timer(self._mode_switch, 1000 * used_timing)
+        print(f"Current mode: {str(self.current_mode)}")
