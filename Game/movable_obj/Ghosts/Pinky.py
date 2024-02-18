@@ -8,17 +8,6 @@ class Pinky(Ghost):
     def __init__(self, in_surface, x, y, in_size, in_game_controller, sprite_path, sprite_fright):
         super().__init__(in_surface, x, y, in_size, in_game_controller, sprite_path, sprite_fright)
 
-    def calculate_direction_to_next_target(self) -> Direction:
-        if self._renderer.current_mode == GhostBehaviour.AGGRESSIVE:
-            if not self.path_built:
-                self.location_queue.clear()
-                self.path_built = True
-                self.request_path_to_player()
-            elif self.next_target is None:
-                self.request_path_to_player()
-        elif self._renderer.current_mode == GhostBehaviour.PEACEFUL:
-            self.path_built = False
-        return super(Pinky, self).calculate_direction_to_next_target()
 
     def find_position_relative_to_character(self, character_position):
         maze = self.game_controller.numpy_maze
