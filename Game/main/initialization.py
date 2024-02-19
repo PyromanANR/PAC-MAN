@@ -21,7 +21,7 @@ class Initialization:
         pacman_game = PacmanGameController(self.levelId)
         size = pacman_game.size
         actual_size = translate_maze_to_screen(size)
-        game_renderer = GameRenderer(actual_size[0], actual_size[1])
+        game_renderer = GameRenderer(actual_size[0], actual_size[1]+80)
 
         for y, row in enumerate(pacman_game.numpy_maze):
             for x, column in enumerate(row):
