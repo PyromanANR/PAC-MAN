@@ -1,5 +1,6 @@
 import pygame
 from Game.game_controllers.Direction import Direction
+from Game.game_controllers.GhostBehaviour import GhostBehaviour
 from Game.game_controllers.Translate_func import unified_size
 from Game.movable_obj.MovableObject import MovableObject
 
@@ -10,8 +11,27 @@ class Ghost(MovableObject):
         self.game_controller = in_game_controller
         self.sprite_normal = pygame.image.load(sprite_path)
         self.sprite_fright = pygame.image.load(sprite_fright)
+        self._path = None
+
+    def draw_path(self):
+        from Game.movable_obj.Ghosts.Blinky import Blinky
+        from Game.movable_obj.Ghosts.Clyde import Clyde
+        from Game.movable_obj.Ghosts.Inky import Inky
+        from Game.movable_obj.Ghosts.Pinky import Pinky
+        color_mapping = {
+            Blinky: "red",
+            Clyde: "orange",
+            Inky: "blue",
+            Pinky: "pink"
+        }
+        if self._path is not None:
+            for x, y in self._path:
+                rect = pygame.Rect(x, y, 5, 5)
+                ghost_color = color_mapping.get(type(self), "red")  # Default to red
+                pygame.draw.rect(self._surface, ghost_color, rect)
 
     def reached_target(self):
+        self.draw_path()
         if (self.x, self.y) == self.next_target:
             self.next_target = self.next_location()
         self.current_direction = self.calculate_direction_to_next_target()
@@ -20,11 +40,23 @@ class Ghost(MovableObject):
         return None if len(self.location_queue) == 0 else self.location_queue.pop(0)
 
     def new_path(self, in_path):
+        self._path = in_path
+        self.location_queue.clear()
         for item in in_path:
             self.location_queue.append(item)
         self.next_target = self.next_location()
 
     def calculate_direction_to_next_target(self) -> Direction:
+        if self._renderer.current_mode == GhostBehaviour.AGGRESSIVE:
+            if not self.path_built:
+                self.location_queue.clear()
+                self.path_built = True
+                self.request_path_to_player()
+            elif self.next_target is None:
+                self.request_path_to_player()
+        elif self._renderer.current_mode == GhostBehaviour.PEACEFUL:
+            self.path_built = False
+
         if self.next_target is None:
             self.game_controller.request_new_random_path(self)
             return Direction.NONE
@@ -40,6 +72,9 @@ class Ghost(MovableObject):
         self.game_controller.request_new_random_path(self)
         return Direction.NONE
 
+    def request_path_to_player(self):
+        pass
+
     def automatic_move(self, in_direction: Direction):
         if in_direction == Direction.UP:
             self.position = self.x, self.y - 1
@@ -53,4 +88,3 @@ class Ghost(MovableObject):
     def draw(self):
         self.image = self.sprite_normal
         super(Ghost, self).draw()
-

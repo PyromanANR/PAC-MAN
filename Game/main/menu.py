@@ -4,8 +4,6 @@ import os
 from Game.main.button import Button
 
 pygame.init()
-
-
 class Menu:
     def __init__(self):
         self.level_Id = None
@@ -70,6 +68,7 @@ class Menu:
         back_button = Button(15, 15, 40, 40, '<-', (255, 255, 255), self.main_menu, (170, 170, 170),
                              (0, 0, 0))
         self.create_menu("Choose a level", [level1_button, level2_button, back_button])
+
 
 
 
