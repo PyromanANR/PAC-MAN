@@ -40,6 +40,7 @@ class PacMan(MovableObject):
             self.position = self.last_non_colliding_position
 
         self.handle_cookie_pickup()
+        self.handle_ghosts()
 
     def automatic_move(self, in_direction: Direction):
         collision_result = self.check_collision_in_direction(in_direction)
@@ -83,6 +84,18 @@ class PacMan(MovableObject):
                     self._renderer.add_score(ScoreType.POWERUP)
                     self._renderer.activate_kokoro()
 
-
+    def handle_ghosts(self):
+        collision_rect = pygame.Rect(self.x, self.y, self._size, self._size)
+        ghosts = self._renderer.ghost
+        game_objects = self._renderer.game_object
+        for ghost in ghosts:
+            collides = collision_rect.colliderect(ghost.shape)
+            if collides and ghost in game_objects:
+                if self._renderer.kokoro_active:
+                    game_objects.remove(ghost)
+                    self._renderer.add_score(ScoreType.GHOST)
+                else:
+                    if not self._renderer.won:
+                        self._renderer.kill_pacman()
 
 

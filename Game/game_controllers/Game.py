@@ -71,7 +71,7 @@ class GameRenderer:
         self._unstoppability = []
         self._ghost = []
         self._hero = None
-        self._lives = 3
+        self._lives = 5
         self._score = 0
         self._score_cookie_pickup = 10
         self._score_ghost_eaten = 400
@@ -98,10 +98,10 @@ class GameRenderer:
                 game_object.tick()
                 game_object.draw()
 
-            self.display_text(f"[Score: {self._score}]  [Lives: {self._lives}]", in_position=(15, self._height-72), in_size=45)
+            self.display_text(f"Score: {self._score}    Lives: {self._lives}", in_position=(15, self._height-72), in_size=45)
 
-            if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),(self._width / 2 - 256, self._height / 2), 100)
-            if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2), 100)
+            if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),(self._width / 2 - 200, self._height / 2-100), 100)
+            if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2-100), 100)
             mouse = pygame.mouse.get_pos()
             self._button.draw(self._screen, mouse)
             pygame.display.flip()
@@ -147,6 +147,17 @@ class GameRenderer:
 
     def start_kokoro_timeout(self):
         pygame.time.set_timer(self._kokoro_end_event, 15000) #15s
+
+    def kill_pacman(self):
+        self._lives -= 1
+        self._hero.position = (60, 30)
+        self._hero.direction = Direction.NONE
+        if self._lives == 0: self.end_game()
+
+    def end_game(self):
+        if self._hero in self._game_objects:
+            self._game_objects.remove(self._hero)
+        self._hero = None
 
     @property
     def done(self) -> bool:
