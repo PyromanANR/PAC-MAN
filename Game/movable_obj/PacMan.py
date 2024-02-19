@@ -73,7 +73,7 @@ class PacMan(MovableObject):
             cookies.remove(cookie_to_remove)
 
         if len(self._renderer.cookie) == 0:
-            self._renderer.won
+            self._renderer.won = True
 
         for powerup in powerups:
             collides = collision_rect.colliderect(powerup.shape)

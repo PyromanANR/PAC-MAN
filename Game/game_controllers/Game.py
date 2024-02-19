@@ -98,10 +98,10 @@ class GameRenderer:
                 game_object.tick()
                 game_object.draw()
 
-            self.display_text(f"[Score: {self._score}]  [Lives: {self._lives}]", (15, self._height-72), 45)
+            self.display_text(f"[Score: {self._score}]  [Lives: {self._lives}]", in_position=(15, self._height-72), in_size=45)
 
-            if self._hero is None: self.display_text("YOU DIED", (self._width / 2 - 256, self._height / 2 - 256), 100)
-            if self.won: self.display_text("YOU WON", (self._width / 2 - 256, self._height / 2 - 256), 100)
+            if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),(self._width / 2 - 256, self._height / 2), 100)
+            if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2), 100)
             mouse = pygame.mouse.get_pos()
             self._button.draw(self._screen, mouse)
             pygame.display.flip()
@@ -113,9 +113,9 @@ class GameRenderer:
         self._menu.levels_menu()
         self.restart_game()
 
-    def display_text(self, text, in_position=(32, 0), in_size=30):
+    def display_text(self, text, color=(255, 255, 255), in_position=(32, 0), in_size=30, ):
         font = pygame.font.SysFont('Arial', in_size)
-        text_surface = font.render(text, False, (255, 255, 255))
+        text_surface = font.render(text, False, color)
         self._screen.blit(text_surface, in_position)
 
 
@@ -146,7 +146,7 @@ class GameRenderer:
         self.start_kokoro_timeout()
 
     def start_kokoro_timeout(self):
-        pygame.time.set_timer(self._kokoro_active, 15000) #15s
+        pygame.time.set_timer(self._kokoro_end_event, 15000) #15s
 
     @property
     def done(self) -> bool:
@@ -161,7 +161,7 @@ class GameRenderer:
         return self._won
 
     @won.setter
-    def won(self, value=True):
+    def won(self, value):
         self._won = value
 
     @property
@@ -236,6 +236,13 @@ class GameRenderer:
 
             if event.type == self._mode_switch:
                 self.handle_mode_switch()
+
+            if event.type == self._kokoro_end_event:
+                self._kokoro_active = False
+
+            if event.type == self._pakupaku_event:
+                if self._hero is None: break
+                self._hero.mouth_open = not self._hero.mouth_open
 
             self._button.click(event)
 
