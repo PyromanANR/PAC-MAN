@@ -71,7 +71,7 @@ class GameRenderer:
         self._unstoppability = []
         self._ghost = []
         self._hero = None
-        self._lives = 5
+        self._lives = 3
         self._score = 0
         self._score_cookie_pickup = 10
         self._score_ghost_eaten = 400
@@ -97,8 +97,9 @@ class GameRenderer:
             for game_object in self._game_objects:
                 game_object.tick()
                 game_object.draw()
-
-            self.display_text(f"Score: {self._score}    Lives: {self._lives}", in_position=(15, self._height-72), in_size=45)
+            for i in range(self._lives):
+                self._screen.blit(pygame.transform.scale(pygame.image.load("..\..\images\lives.png"), (30, 30)), (340 + i * 40, self._height-55))
+            self.display_text(f"Score: {self._score}    Lives: ", in_position=(15, self._height-72), in_size=45)
 
             if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),(self._width / 2 - 200, self._height / 2-100), 100)
             if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2-100), 100)
@@ -114,7 +115,7 @@ class GameRenderer:
         self.restart_game()
 
     def display_text(self, text, color=(255, 255, 255), in_position=(32, 0), in_size=30, ):
-        font = pygame.font.SysFont('Arial', in_size)
+        font = pygame.font.SysFont('DejaVuSans', in_size)
         text_surface = font.render(text, False, color)
         self._screen.blit(text_surface, in_position)
 
@@ -152,6 +153,7 @@ class GameRenderer:
         self._lives -= 1
         self._hero.position = (60, 30)
         self._hero.direction = Direction.NONE
+        self._current_mode = GhostBehaviour.PEACEFUL
         if self._lives == 0: self.end_game()
 
     def end_game(self):
