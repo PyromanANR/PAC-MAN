@@ -3,6 +3,7 @@ import pygame
 from Game.game_controllers.Direction import Direction
 from Game.game_controllers.ScoreType import ScoreType
 from Game.game_controllers.GhostBehaviour import GhostBehaviour
+from Game.game_controllers.Translate_func import translate_maze_to_screen
 from Game.main.button import Button
 from Game.main.menu import Menu
 
@@ -97,6 +98,7 @@ class GameRenderer:
             for game_object in self._game_objects:
                 game_object.tick()
                 game_object.draw()
+
             for i in range(self._lives):
                 self._screen.blit(pygame.transform.scale(pygame.image.load("..\..\images\lives.png"), (30, 30)), (340 + i * 40, self._height-55))
             self.display_text(f"Score: {self._score}    Lives: ", in_position=(15, self._height-72), in_size=45)
@@ -144,6 +146,7 @@ class GameRenderer:
     def activate_kokoro(self):
         self._kokoro_active = True
         self._current_mode = GhostBehaviour.PEACEFUL
+        print(f"Current mode: {str(self.current_mode)}")
         self.start_kokoro_timeout()
 
     def start_kokoro_timeout(self):
@@ -151,7 +154,8 @@ class GameRenderer:
 
     def kill_pacman(self):
         self._lives -= 1
-        self._hero.position = (60, 30)
+        translated = translate_maze_to_screen(self._hero.game_controller.hero_position[0])
+        self._hero.position = (translated[0], translated[1])
         self._hero.direction = Direction.NONE
         self._current_mode = GhostBehaviour.PEACEFUL
         if self._lives == 0: self.end_game()
@@ -270,7 +274,7 @@ class GameRenderer:
             self._hero.direction = Direction.RIGHT
 
     def handle_mode_switch(self):
-        if self.current_mode == GhostBehaviour.PEACEFUL:
+        if self.current_mode == GhostBehaviour.PEACEFUL and not self.kokoro_active:
             self.current_mode = GhostBehaviour.AGGRESSIVE
         else:
             self.current_mode = GhostBehaviour.PEACEFUL

@@ -6,7 +6,12 @@ import pygame
 from Game.game_controllers.Pathfinder import Pathfinder
 from Game.game_controllers.Translate_func import translate_screen_to_maze, translate_maze_to_screen
 from Game.movable_obj.Ghost import Ghost
-
+#Test
+# [
+#     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+#     "WW          P SWWWWWWWWWWWWWWWW",
+#     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+# ],
 
 class PacmanGameController:
     def __init__(self, levelId):

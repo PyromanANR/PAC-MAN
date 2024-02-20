@@ -10,6 +10,7 @@ class Inky(Ghost):
 
 
 
+
     def mirror_position_relative_to_pacman(self, pacman_position, blinky_position):
         maze = self.game_controller.numpy_maze
         x_p, y_p = pacman_position

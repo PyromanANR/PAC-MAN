@@ -8,6 +8,7 @@ class Clyde(Ghost):
     def __init__(self, in_surface, x, y, in_size, in_game_controller, sprite_path, sprite_fright):
         super().__init__(in_surface, x, y, in_size, in_game_controller, sprite_path, sprite_fright)
 
+
     def find_position_outside_radius(self, character_position, current_maze_coord):
         maze = self.game_controller.numpy_maze
         radius = 8

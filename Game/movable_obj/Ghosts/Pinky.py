@@ -9,6 +9,7 @@ class Pinky(Ghost):
         super().__init__(in_surface, x, y, in_size, in_game_controller, sprite_path, sprite_fright)
 
 
+
     def find_position_relative_to_character(self, character_position):
         maze = self.game_controller.numpy_maze
         x, y = character_position

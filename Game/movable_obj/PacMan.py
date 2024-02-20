@@ -5,8 +5,9 @@ from Game.movable_obj.MovableObject import MovableObject
 
 
 class PacMan(MovableObject):
-    def __init__(self, in_surface, x, y, in_size: int):
+    def __init__(self, in_surface, x, y, in_size: int, in_game_controller):
         super().__init__(in_surface, x, y, in_size, (255, 255, 0), False)
+        self.game_controller = in_game_controller
         self.last_non_colliding_position = (0, 0)
         self.open = pygame.image.load("..\..\images\paku.png")
         self.closed = pygame.image.load("..\..\images\man.png")
