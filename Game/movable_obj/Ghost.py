@@ -42,7 +42,7 @@ class Ghost(MovableObject):
                 pygame.draw.rect(self._surface, ghost_color, rect)
 
     def reached_target(self):
-        self.draw_path()
+        if self._renderer.devmode: self.draw_path()
         if (self.x, self.y) == self.next_target:
             self.next_target = self.next_location()
         self.current_direction = self.calculate_direction_to_next_target()

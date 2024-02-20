@@ -89,7 +89,6 @@ class GameRenderer:
         self._current_phase = 0
 
     def tick(self, in_fps: int):
-        black = (0, 0, 0)
         self.handle_mode_switch()
         pygame.time.set_timer(self._pakupaku_event, 200)
         while not self.done:
@@ -106,7 +105,7 @@ class GameRenderer:
             if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2 - 100), 100)
             dt = self._clock.tick(in_fps)
             self._rest_time -= dt
-            if self._devmode: self.display_text(f"GhostBehaviour Time: {self._rest_time}", (0, 153, 0), in_position=(480, self._height - 55), in_size=25)
+            if self.devmode: self.display_text(f"GhostBehaviour Time: {self._rest_time}", (0, 153, 0), in_position=(480, self._height - 55), in_size=25)
             mouse = pygame.mouse.get_pos()
             self._button.draw(self._screen, mouse)
             pygame.display.flip()
@@ -126,6 +125,10 @@ class GameRenderer:
         from Game.main.initialization import Initialization
         game = Initialization(self._menu.levelId)
         game.create_game()
+
+    @property
+    def devmode(self):
+        return self._devmode
 
     @property
     def game_object(self):
@@ -298,3 +301,4 @@ class GameRenderer:
 
     def add_score(self, in_score: ScoreType):
         self._score += in_score.value
+
