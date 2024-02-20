@@ -17,10 +17,11 @@ from Game.not_movable_obj.Wall import Wall
 # color - black, white
 # difficulty - 1, 2
 # dev - True, False
+#--difficulty 1 --background black --dev
 parser = argparse.ArgumentParser(description='Програма для зміни налаштувань гри')
 parser.add_argument('--difficulty', type=int, help='Рівень складності гри')
 parser.add_argument('--background', type=str, help='Колір фону гри')
-parser.add_argument('--dev', type=bool, help='Інструменти розробника')
+parser.add_argument('--dev', action='store_true', help='Інструменти розробника')
 args = parser.parse_args()
 
 class Initialization:
