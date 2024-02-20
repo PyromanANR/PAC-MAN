@@ -52,13 +52,17 @@ class GameObject:
 
 
 class GameRenderer:
-    def __init__(self, in_width: int, in_height: int):
+    def __init__(self, in_width: int, in_height: int, background_color='black', difficulty=1, devmode=False):
         pygame.init()
         self._width = in_width
         self._height = in_height
         self._screen = pygame.display.set_mode((in_width, in_height))
         pygame.display.set_caption('Pacman')
+        self._screen_color = background_color
+        self._difficulty = difficulty
+        self._devmode = devmode
         self._clock = pygame.time.Clock()
+        self._rest_time = 1
         self._done = False
         self._won = False
         self._menu: Menu = Menu()
@@ -82,12 +86,6 @@ class GameRenderer:
         self._mode_switch = pygame.USEREVENT + 1
         self._kokoro_end_event = pygame.USEREVENT + 2
         self._pakupaku_event = pygame.USEREVENT + 3
-        self._modes = [
-            (7, 20),
-            (7, 20),
-            (5, 20),
-            (5, 999999)  # 'infinite' chase seconds
-        ]
         self._current_phase = 0
 
     def tick(self, in_fps: int):
@@ -101,17 +99,18 @@ class GameRenderer:
 
             for i in range(self._lives):
                 self._screen.blit(pygame.transform.scale(pygame.image.load("..\..\images\lives.png"), (30, 30)),
-                                  (380 + i * 40, self._height - 55))
-            self.display_text(f"Score: {self._score}    Lives: ", in_position=(15, self._height - 72), in_size=45)
-
+                                  (320 + i * 40, self._height - 55))
+            self.display_text(f"Score: {self._score} Lives: ", in_position=(15, self._height - 72), in_size=45)
             if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),
                                                      (self._width / 2 - 200, self._height / 2 - 100), 100)
             if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2 - 100), 100)
+            dt = self._clock.tick(in_fps)
+            self._rest_time -= dt
+            if self._devmode: self.display_text(f"GhostBehaviour Time: {self._rest_time}", (0, 153, 0), in_position=(480, self._height - 55), in_size=25)
             mouse = pygame.mouse.get_pos()
             self._button.draw(self._screen, mouse)
             pygame.display.flip()
-            self._clock.tick(in_fps)
-            self._screen.fill(black)
+            self._screen.fill(self._screen_color)
             self._handle_events()
 
         print("Game over")
@@ -269,7 +268,8 @@ class GameRenderer:
                         pygame.time.set_timer(ghost.death_event, 0)
                         ghost.death = False
                         ghost.location_queue.clear()
-                        position = (ghost.game_controller.cell_spaces[4][0] - 3, ghost.game_controller.cell_spaces[4][1] - 2)
+                        position = (
+                            ghost.game_controller.cell_spaces[4][0] - 3, ghost.game_controller.cell_spaces[4][1] - 2)
                         translated = translate_maze_to_screen(position)
                         ghost.position = (translated[0], translated[1])
 
@@ -291,7 +291,9 @@ class GameRenderer:
         else:
             self.current_mode = GhostBehaviour.PEACEFUL
         used_timing = 8 if self.current_mode == GhostBehaviour.PEACEFUL else 20
-        pygame.time.set_timer(self._mode_switch, 1000 * used_timing)
+        time = 1000 * used_timing if self.current_mode == GhostBehaviour.PEACEFUL else 1000 * used_timing * self._difficulty
+        self._rest_time = time
+        pygame.time.set_timer(self._mode_switch, time)
         print(f"Current mode: {str(self.current_mode)}")
 
     def add_score(self, in_score: ScoreType):

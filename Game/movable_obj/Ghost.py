@@ -25,10 +25,10 @@ class Ghost(MovableObject):
         self._death = value
 
     def draw_path(self):
-        from Game.movable_obj.Ghosts.Blinky import Blinky
-        from Game.movable_obj.Ghosts.Clyde import Clyde
-        from Game.movable_obj.Ghosts.Inky import Inky
-        from Game.movable_obj.Ghosts.Pinky import Pinky
+        from Game.movable_obj.ghosts.Blinky import Blinky
+        from Game.movable_obj.ghosts.Clyde import Clyde
+        from Game.movable_obj.ghosts.Inky import Inky
+        from Game.movable_obj.ghosts.Pinky import Pinky
         color_mapping = {
             Blinky: "red",
             Clyde: "orange",

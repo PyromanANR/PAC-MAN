@@ -23,7 +23,7 @@ class Menu:
         WIDTH, HEIGHT = 900, 600
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(title)
-        image_path = os.path.join('..', '..', 'images', 'background.jpg')
+        image_path = os.path.join('../../images', 'background.jpg')
         main_background = pygame.image.load(image_path)
 
         while self.running:
