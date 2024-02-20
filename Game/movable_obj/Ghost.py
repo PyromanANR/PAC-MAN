@@ -13,6 +13,16 @@ class Ghost(MovableObject):
         self.sprite_fright = pygame.image.load(sprite_fright)
         self._path = None
         self.path_built = False
+        self.death_event = pygame.USEREVENT + pygame.time.get_ticks()
+        self._death = False
+
+    @property
+    def death(self) -> bool:
+        return self._death
+
+    @death.setter
+    def death(self, value: bool):
+        self._death = value
 
     def draw_path(self):
         from Game.movable_obj.Ghosts.Blinky import Blinky
@@ -60,8 +70,6 @@ class Ghost(MovableObject):
                 self.path_built = False
                 self.location_queue.clear()
 
-
-
         if self.next_target is None:
             self.game_controller.request_new_random_path(self)
             return Direction.NONE
@@ -89,6 +97,11 @@ class Ghost(MovableObject):
             self.position = self.x - 1, self.y
         elif in_direction == Direction.RIGHT:
             self.position = self.x + 1, self.y
+
+    def activate_death(self):
+        self.death = True
+        pygame.time.set_timer(self.death_event, 10000)
+
 
     def draw(self):
         self.image = self.sprite_fright if self._renderer.kokoro_active else self.sprite_normal

@@ -27,9 +27,11 @@ class MovableObject(GameObject):
         collision_rect = pygame.Rect(in_position[0], in_position[1], self._size, self._size)
         collides = False
         walls = self._renderer.walls
-        for wall in walls:
-            collides = collision_rect.colliderect(wall.shape)
-            if collides: break
+        cells = self._renderer.cell
+        for obstacle in walls + cells:
+            collides = collision_rect.colliderect(obstacle.shape)
+            if collides:
+                break
         return collides
 
     def check_collision_in_direction(self, in_direction: Direction):
