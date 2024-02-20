@@ -6,7 +6,12 @@ import pygame
 from Game.game_controllers.Pathfinder import Pathfinder
 from Game.game_controllers.Translate_func import translate_screen_to_maze, translate_maze_to_screen
 from Game.movable_obj.Ghost import Ghost
-
+#Test
+# [
+#     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+#     "WW          P SWWWWWWWWWWWWWWWW",
+#     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+# ],
 
 class PacmanGameController:
     def __init__(self, levelId):
@@ -93,7 +98,10 @@ class PacmanGameController:
                 if column == "W":
                     binary_row.append(0)
                 elif column == "C":
-                    binary_row.append(0)
+                    if len(self.cell_spaces) >= 3:
+                        binary_row.append(1)
+                    else:
+                        binary_row.append(0)
                     self.cell_spaces.append((y, x))
                 else:
                     binary_row.append(1)
@@ -114,8 +122,12 @@ class PacmanGameController:
     def request_new_random_path(self, in_ghost: Ghost):
         random_space = random.choice(self.reachable_spaces)
         current_maze_coord = translate_screen_to_maze(in_ghost.position)
-
-        path = self.p.path(current_maze_coord[1], current_maze_coord[0],
-                           random_space[1], random_space[0])
+        if in_ghost.death:
+            random_space_cell = random.choice(self.cell_spaces)
+            path = self.p.path(current_maze_coord[1], current_maze_coord[0],
+                               random_space_cell[1], random_space_cell[0])
+        else:
+            path = self.p.path(current_maze_coord[1], current_maze_coord[0],
+                               random_space[1], random_space[0])
         test_path = [translate_maze_to_screen(item) for item in path]
         in_ghost.new_path(test_path)

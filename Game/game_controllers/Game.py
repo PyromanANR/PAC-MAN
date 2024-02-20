@@ -3,6 +3,7 @@ import pygame
 from Game.game_controllers.Direction import Direction
 from Game.game_controllers.ScoreType import ScoreType
 from Game.game_controllers.GhostBehaviour import GhostBehaviour
+from Game.game_controllers.Translate_func import translate_maze_to_screen
 from Game.main.button import Button
 from Game.main.menu import Menu
 
@@ -61,7 +62,7 @@ class GameRenderer:
         self._done = False
         self._won = False
         self._menu: Menu = Menu()
-        self._button: Button = Button(self._width-165, self._height-65, 150, 50, 'Go back', (0, 0, 0),
+        self._button: Button = Button(self._width - 165, self._height - 65, 150, 50, 'Go back', (0, 0, 0),
                                       lambda: setattr(self, '_done', True), (170, 170, 170),
                                       (255, 255, 255))
         self._game_objects = []
@@ -97,12 +98,15 @@ class GameRenderer:
             for game_object in self._game_objects:
                 game_object.tick()
                 game_object.draw()
-            for i in range(self._lives):
-                self._screen.blit(pygame.transform.scale(pygame.image.load("..\..\images\lives.png"), (30, 30)), (340 + i * 40, self._height-55))
-            self.display_text(f"Score: {self._score}    Lives: ", in_position=(15, self._height-72), in_size=45)
 
-            if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),(self._width / 2 - 200, self._height / 2-100), 100)
-            if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2-100), 100)
+            for i in range(self._lives):
+                self._screen.blit(pygame.transform.scale(pygame.image.load("..\..\images\lives.png"), (30, 30)),
+                                  (380 + i * 40, self._height - 55))
+            self.display_text(f"Score: {self._score}    Lives: ", in_position=(15, self._height - 72), in_size=45)
+
+            if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),
+                                                     (self._width / 2 - 200, self._height / 2 - 100), 100)
+            if self.won: self.display_text("YOU WON", (0, 153, 0), (self._width / 2 - 200, self._height / 2 - 100), 100)
             mouse = pygame.mouse.get_pos()
             self._button.draw(self._screen, mouse)
             pygame.display.flip()
@@ -118,7 +122,6 @@ class GameRenderer:
         font = pygame.font.SysFont('DejaVuSans', in_size)
         text_surface = font.render(text, False, color)
         self._screen.blit(text_surface, in_position)
-
 
     def restart_game(self):
         from Game.main.initialization import Initialization
@@ -144,16 +147,19 @@ class GameRenderer:
     def activate_kokoro(self):
         self._kokoro_active = True
         self._current_mode = GhostBehaviour.PEACEFUL
+        print(f"Current mode: {str(self.current_mode)}")
         self.start_kokoro_timeout()
 
     def start_kokoro_timeout(self):
-        pygame.time.set_timer(self._kokoro_end_event, 15000) #15s
+        pygame.time.set_timer(self._kokoro_end_event, 10000)  # 10s
 
     def kill_pacman(self):
         self._lives -= 1
-        self._hero.position = (60, 30)
+        translated = translate_maze_to_screen(self._hero.game_controller.hero_position[0])
+        self._hero.position = (translated[0], translated[1])
         self._hero.direction = Direction.NONE
         self._current_mode = GhostBehaviour.PEACEFUL
+        print(f"Current mode: {str(self.current_mode)}")
         if self._lives == 0: self.end_game()
 
     def end_game(self):
@@ -257,6 +263,16 @@ class GameRenderer:
                 if self._hero is None: break
                 self._hero.mouth_open = not self._hero.mouth_open
 
+            else:
+                for ghost in self._ghost:
+                    if event.type == ghost.death_event:
+                        pygame.time.set_timer(ghost.death_event, 0)
+                        ghost.death = False
+                        ghost.location_queue.clear()
+                        position = (ghost.game_controller.cell_spaces[4][0] - 3, ghost.game_controller.cell_spaces[4][1] - 2)
+                        translated = translate_maze_to_screen(position)
+                        ghost.position = (translated[0], translated[1])
+
             self._button.click(event)
 
         pressed = pygame.key.get_pressed()
@@ -270,7 +286,7 @@ class GameRenderer:
             self._hero.direction = Direction.RIGHT
 
     def handle_mode_switch(self):
-        if self.current_mode == GhostBehaviour.PEACEFUL:
+        if self.current_mode == GhostBehaviour.PEACEFUL and not self.kokoro_active:
             self.current_mode = GhostBehaviour.AGGRESSIVE
         else:
             self.current_mode = GhostBehaviour.PEACEFUL

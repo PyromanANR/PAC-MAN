@@ -53,6 +53,6 @@ class Initialization:
                 game_renderer.ghost = ghost
 
         translated = translate_maze_to_screen(pacman_game.hero_position[0])
-        pacman = PacMan(game_renderer, translated[0], translated[1], unified_size)
+        pacman = PacMan(game_renderer, translated[0], translated[1], unified_size, pacman_game)
         game_renderer.hero = pacman
         game_renderer.tick(120)

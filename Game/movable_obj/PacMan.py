@@ -1,12 +1,14 @@
 import pygame
 from Game.game_controllers.Direction import Direction
 from Game.game_controllers.ScoreType import ScoreType
+from Game.game_controllers.Translate_func import translate_maze_to_screen
 from Game.movable_obj.MovableObject import MovableObject
 
 
 class PacMan(MovableObject):
-    def __init__(self, in_surface, x, y, in_size: int):
+    def __init__(self, in_surface, x, y, in_size: int, in_game_controller):
         super().__init__(in_surface, x, y, in_size, (255, 255, 0), False)
+        self.game_controller = in_game_controller
         self.last_non_colliding_position = (0, 0)
         self.open = pygame.image.load("..\..\images\paku.png")
         self.closed = pygame.image.load("..\..\images\man.png")
@@ -92,7 +94,9 @@ class PacMan(MovableObject):
             collides = collision_rect.colliderect(ghost.shape)
             if collides and ghost in game_objects:
                 if self._renderer.kokoro_active:
-                    game_objects.remove(ghost)
+                    position = translate_maze_to_screen(self.game_controller.cell_spaces[4])
+                    ghost.position = (position[0], position[1])
+                    ghost.activate_death()
                     self._renderer.add_score(ScoreType.GHOST)
                 else:
                     if not self._renderer.won:
