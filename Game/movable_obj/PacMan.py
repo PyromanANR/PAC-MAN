@@ -1,5 +1,6 @@
 import pygame
 from Game.game_controllers.Direction import Direction
+from Game.game_controllers.ScoreType import ScoreType
 from Game.movable_obj.MovableObject import MovableObject
 
 
@@ -19,12 +20,12 @@ class PacMan(MovableObject):
             self.x = self._renderer._width
 
         if self.y < 0:
-            self.y = self._renderer._height
+            self.y = self._renderer._height - 100
 
         if self.x > self._renderer._width:
             self.x = 0
 
-        if self.y > self._renderer._height:
+        if self.y > self._renderer._height - 100:
             self.y = 0
 
         self.last_non_colliding_position = self.position
@@ -38,7 +39,8 @@ class PacMan(MovableObject):
         if self.collides_with_wall((self.x, self.y)):
             self.position = self.last_non_colliding_position
 
-        #self.handle_cookie_pickup()
+        self.handle_cookie_pickup()
+        self.handle_ghosts()
 
     def automatic_move(self, in_direction: Direction):
         collision_result = self.check_collision_in_direction(in_direction)
@@ -55,10 +57,45 @@ class PacMan(MovableObject):
         self.image = pygame.transform.rotate(self.image, self.current_direction.value)
         super(PacMan, self).draw()
 
+    def handle_cookie_pickup(self):
+        collision_rect = pygame.Rect(self.x, self.y, self._size, self._size)
+        cookies = self._renderer.cookie
+        powerups = self._renderer.unstoppability
+        game_objects = self._renderer.game_object
+        cookie_to_remove = None
+        for cookie in cookies:
+            collides = collision_rect.colliderect(cookie.shape)
+            if collides and cookie in game_objects:
+                game_objects.remove(cookie)
+                self._renderer.add_score(ScoreType.COOKIE)
+                cookie_to_remove = cookie
 
+        if cookie_to_remove is not None:
+            cookies.remove(cookie_to_remove)
 
+        if len(self._renderer.cookie) == 0:
+            self._renderer.won = True
 
+        for powerup in powerups:
+            collides = collision_rect.colliderect(powerup.shape)
+            if collides and powerup in game_objects:
+                if not self._renderer.kokoro_active:
+                    game_objects.remove(powerup)
+                    self._renderer.add_score(ScoreType.POWERUP)
+                    self._renderer.activate_kokoro()
 
-
+    def handle_ghosts(self):
+        collision_rect = pygame.Rect(self.x, self.y, self._size, self._size)
+        ghosts = self._renderer.ghost
+        game_objects = self._renderer.game_object
+        for ghost in ghosts:
+            collides = collision_rect.colliderect(ghost.shape)
+            if collides and ghost in game_objects:
+                if self._renderer.kokoro_active:
+                    game_objects.remove(ghost)
+                    self._renderer.add_score(ScoreType.GHOST)
+                else:
+                    if not self._renderer.won:
+                        self._renderer.kill_pacman()
 
 
