@@ -1,27 +1,40 @@
+import argparse
+
 from Game.game_controllers.Game import GameRenderer
 from Game.game_controllers.PacmanGameController import PacmanGameController
 from Game.game_controllers.Translate_func import translate_maze_to_screen, unified_size
 from Game.movable_obj.Ghost import Ghost
-from Game.movable_obj.Ghosts.Blinky import Blinky
-from Game.movable_obj.Ghosts.Clyde import Clyde
-from Game.movable_obj.Ghosts.Inky import Inky
-from Game.movable_obj.Ghosts.Pinky import Pinky
+from Game.movable_obj.ghosts.Blinky import Blinky
+from Game.movable_obj.ghosts.Clyde import Clyde
+from Game.movable_obj.ghosts.Inky import Inky
+from Game.movable_obj.ghosts.Pinky import Pinky
 from Game.movable_obj.PacMan import PacMan
 from Game.not_movable_obj.Cell import Cell
 from Game.not_movable_obj.Cookie import Cookie
 from Game.not_movable_obj.Unstoppability import Unstoppability
 from Game.not_movable_obj.Wall import Wall
 
+# color - black, white
+# difficulty - 1, 2
+# dev - True, False
+#--difficulty 1 --background black --dev
+parser = argparse.ArgumentParser(description='Програма для зміни налаштувань гри')
+parser.add_argument('--difficulty', type=int, help='Рівень складності гри')
+parser.add_argument('--background', type=str, help='Колір фону гри')
+parser.add_argument('--dev', action='store_true', help='Інструменти розробника')
+args = parser.parse_args()
 
 class Initialization:
     def __init__(self, levelId):
         self.levelId = levelId
 
     def create_game(self):
+        print(f'Рівень складності: {args.difficulty}')
+        print(f'Колір фону: {args.background}')
         pacman_game = PacmanGameController(self.levelId)
         size = pacman_game.size
         actual_size = translate_maze_to_screen(size)
-        game_renderer = GameRenderer(actual_size[0], actual_size[1]+80)
+        game_renderer = GameRenderer(actual_size[0], actual_size[1]+80, args.background, args.difficulty, args.dev)
 
         for y, row in enumerate(pacman_game.numpy_maze):
             for x, column in enumerate(row):
