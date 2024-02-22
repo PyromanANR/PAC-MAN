@@ -1,15 +1,10 @@
-from Game.game_controllers.Direction import Direction
-from Game.game_controllers.GhostBehaviour import GhostBehaviour
-from Game.game_controllers.Translate_func import translate_screen_to_maze, translate_maze_to_screen
+from Game.game_controllers.Translate_func import translate_screen_to_maze
 from Game.movable_obj.Ghost import Ghost
 
 
 class Inky(Ghost):
     def __init__(self, in_surface, x, y, in_size, in_game_controller, sprite_path, sprite_fright):
         super().__init__(in_surface, x, y, in_size, in_game_controller, sprite_path, sprite_fright)
-
-
-
 
     def mirror_position_relative_to_pacman(self, pacman_position, blinky_position):
         maze = self.game_controller.numpy_maze
@@ -33,15 +28,9 @@ class Inky(Ghost):
                                         return next_x, next_y
         return x_p, y_p
 
-    def request_path_to_player(self):
+    def find_target_position(self):
         blinky = self._renderer.ghost[0]
         blinky_position = translate_screen_to_maze(blinky.position)
         player_position = translate_screen_to_maze(self._renderer.hero_position())
         new_inky_position = self.mirror_position_relative_to_pacman(player_position, blinky_position)
-        current_maze_coord = translate_screen_to_maze(self.position)
-        path = self.game_controller.p.path(current_maze_coord[1], current_maze_coord[0],
-                                           new_inky_position[1], new_inky_position[0])
-
-        new_path = [translate_maze_to_screen(item) for item in path]
-        self.new_path(new_path)
-
+        return new_inky_position

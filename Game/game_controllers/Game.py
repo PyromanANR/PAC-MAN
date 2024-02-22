@@ -12,6 +12,26 @@ class GameObject:
     def __init__(self, in_surface, x, y,
                  in_size: int, in_color=(255, 0, 0),
                  is_circle: bool = False):
+        """
+              Initialize the GameObject with the given parameters.
+
+              Parameters:
+              in_surface (GameRenderer): The surface on which the game object will be rendered.
+              x (int): The x-coordinate of the game object.
+              y (int): The y-coordinate of the game object.
+              in_size (int): The size of the game object.
+              in_color (tuple): The color of the game object. Default is red (255, 0, 0).
+              is_circle (bool): A flag indicating whether the game object is a circle. Default is False.
+        """
+        self._size = in_size
+        self._renderer: GameRenderer = in_surface
+        self._surface = in_surface._screen
+        self.y = y
+        self.x = x
+        self._color = in_color
+        self._circle = is_circle
+        self._shape = pygame.Rect(self.x, self.y, in_size, in_size)
+
         self._size = in_size
         self._renderer: GameRenderer = in_surface
         self._surface = in_surface._screen
@@ -22,6 +42,9 @@ class GameObject:
         self._shape = pygame.Rect(self.x, self.y, in_size, in_size)
 
     def draw(self):
+        """
+             Draw the game object on the surface. If the game object is a circle, draw a circle. Otherwise, draw a rectangle.
+        """
         if self._circle:
             pygame.draw.circle(self._surface,
                                self._color,
@@ -35,6 +58,9 @@ class GameObject:
                              border_radius=4)
 
     def tick(self):
+        """
+               This method is called every frame. Override this method to add custom behavior.
+        """
         pass
 
     @property
@@ -53,6 +79,16 @@ class GameObject:
 
 class GameRenderer:
     def __init__(self, in_width: int, in_height: int, background_color='black', difficulty=1, devmode=False):
+        """
+             Initialize the GameRenderer with the given parameters.
+
+             Parameters:
+             in_width (int): The width of the game screen.
+             in_height (int): The height of the game screen.
+             background_color (str): The color of the game screen. Default is 'black'.
+             difficulty (int): The difficulty level of the game. Default is 1.
+             devmode (bool): A flag indicating whether the game is in development mode. Default is False.
+        """
         pygame.init()
         self._width = in_width
         self._height = in_height
@@ -86,6 +122,12 @@ class GameRenderer:
         self._current_phase = 0
 
     def tick(self, in_fps: int):
+        """
+             This method is called every frame. It handles the game logic and updates the game state.
+
+             Parameters:
+             in_fps (int): The frames per second at which the game runs.
+        """
         self.handle_mode_switch()
         pygame.time.set_timer(self._pakupaku_event, 200)
         while not self.done:
@@ -114,11 +156,23 @@ class GameRenderer:
         self.restart_game()
 
     def display_text(self, text, color=(255, 255, 255), in_position=(32, 0), in_size=30, ):
+        """
+              Display the given text on the game screen at the given position.
+
+              Parameters:
+              text (str): The text to be displayed.
+              color (tuple): The color of the text. Default is white (255, 255, 255).
+              in_position (tuple): The position at which the text is displayed. Default is (32, 0).
+              in_size (int): The size of the text. Default is 30.
+        """
         font = pygame.font.SysFont('DejaVuSans', in_size)
         text_surface = font.render(text, False, color)
         self._screen.blit(text_surface, in_position)
 
     def restart_game(self):
+        """
+               Restart the game by creating a new game instance.
+        """
         from Game.main.initialization import Initialization
         game = Initialization(self._menu.levelId)
         game.create_game()
@@ -144,15 +198,24 @@ class GameRenderer:
         self._kokoro_active = value
 
     def activate_kokoro(self):
+        """
+          Activates the 'kokoro' mode in the game and starts its timeout.
+        """
         self._kokoro_active = True
         self._current_mode = GhostBehaviour.PEACEFUL
         print(f"Current mode: {str(self.current_mode)}")
         self.start_kokoro_timeout()
 
     def start_kokoro_timeout(self):
+        """
+        Starts a timer for the 'kokoro' mode which lasts for 10 seconds.
+        """
         pygame.time.set_timer(self._kokoro_end_event, 10000)  # 10s
 
     def kill_pacman(self):
+        """
+        Decreases the lives of the pacman by 1. If the lives reach 0, the game ends.
+        """
         self._lives -= 1
         translated = translate_maze_to_screen(self._hero.game_controller.hero_position[0])
         self._hero.position = (translated[0], translated[1])
@@ -162,6 +225,9 @@ class GameRenderer:
         if self._lives == 0: self.end_game()
 
     def end_game(self):
+        """
+        Ends the game by removing the hero from the game objects and setting it to None.
+        """
         if self._hero in self._game_objects:
             self._game_objects.remove(self._hero)
         self._hero = None
@@ -245,9 +311,16 @@ class GameRenderer:
         self._hero = in_hero
 
     def hero_position(self):
+        """
+        Returns the position of the hero. If the hero is None, it returns (0, 0).
+        """
         return self._hero.position if self._hero is not None else (0, 0)
 
     def _handle_events(self):
+        """
+        Handles all the events in the game such as quitting the game, switching modes, ending 'kokoro' mode,
+        opening and closing the pacman's mouth, and the death of a ghost.
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.done = True
@@ -286,6 +359,9 @@ class GameRenderer:
             self._hero.direction = Direction.RIGHT
 
     def handle_mode_switch(self):
+        """
+        Handles the switching of modes between 'PEACEFUL' and 'AGGRESSIVE'. The time for each mode is set here.
+        """
         if self.current_mode == GhostBehaviour.PEACEFUL and not self.kokoro_active:
             self.current_mode = GhostBehaviour.AGGRESSIVE
         else:
@@ -297,5 +373,11 @@ class GameRenderer:
         print(f"Current mode: {str(self.current_mode)}")
 
     def add_score(self, in_score: ScoreType):
+        """
+        Adds the given score to the total score.
+
+        Parameters:
+        in_score (ScoreType): The score to be added.
+        """
         self._score += in_score.value
 
