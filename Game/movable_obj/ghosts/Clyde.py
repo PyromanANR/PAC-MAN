@@ -22,12 +22,9 @@ class Clyde(Ghost):
 
         return current_maze_coord
 
-    def request_path_to_player(self):
+    def find_target_position(self):
         player_position = translate_screen_to_maze(self._renderer.hero_position())
         current_maze_coord = translate_screen_to_maze(self.position)
         new_clyde_position = self.find_position_outside_radius(player_position, current_maze_coord)
-        path = self.game_controller.p.path(current_maze_coord[1], current_maze_coord[0],
-                                           new_clyde_position[1], new_clyde_position[0])
+        return new_clyde_position
 
-        new_path = [translate_maze_to_screen(item) for item in path]
-        self.new_path(new_path)

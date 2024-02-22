@@ -17,6 +17,12 @@ from Game.movable_obj.Ghost import Ghost
 
 class PacmanGameController:
     def __init__(self, levelId):
+        """
+               Initialize the PacmanGameController with the given level ID.
+
+               Parameters:
+               levelId (int): The ID of the level to be loaded.
+        """
         self.ascii_maze = [
             [
                 "WWWWWWWWW WWWWWWWWWWW WWWWWWWWW",
@@ -92,6 +98,12 @@ class PacmanGameController:
         self.p = Pathfinder(self.numpy_maze)
 
     def convert_maze_to_numpy(self, id):
+        """
+              Convert the ASCII maze to a numpy array for easier manipulation.
+
+              Parameters:
+              id (int): The ID of the level to be converted.
+        """
         for x, row in enumerate(self.ascii_maze[id]):
             self.size = (len(row), x + 1)
             binary_row = []
@@ -122,6 +134,17 @@ class PacmanGameController:
             self.numpy_maze.append(binary_row)
 
     def request_new_random_path(self, in_ghost: Ghost):
+        """
+          Requests a new random path for the given ghost.
+
+          Parameters:
+          in_ghost (Ghost): The ghost for which a new path is to be generated.
+
+          This method first selects a random reachable space in the maze. Then it translates the current position of the ghost
+          from screen coordinates to maze coordinates. If the ghost is in a 'death' state, it selects a random cell space and
+          calculates a path to that space. Otherwise, it calculates a path to the previously selected random reachable space.
+          The path is then translated back to screen coordinates and set as the new path for the ghost.
+        """
         random_space = random.choice(self.reachable_spaces)
         current_maze_coord = translate_screen_to_maze(in_ghost.position)
         if in_ghost.death:
