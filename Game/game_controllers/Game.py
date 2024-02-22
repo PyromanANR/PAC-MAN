@@ -73,9 +73,6 @@ class GameRenderer:
         self._hero = None
         self._lives = 3
         self._score = 0
-        self._score_cookie_pickup = 10
-        self._score_ghost_eaten = 400
-        self._score_powerup_pickup = 50
         self._kokoro_active = False
         self._current_mode = GhostBehaviour.AGGRESSIVE
         self._mode_switch = pygame.USEREVENT + 1
