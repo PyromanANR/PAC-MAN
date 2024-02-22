@@ -29,6 +29,19 @@ class Initialization:
         self.levelId = levelId
 
     def create_game(self):
+        """
+        Initializes and starts the Pacman game.
+
+        Usage:
+        - This method is used to initialize and start the Pacman game.
+        - It creates a new PacmanGameController with the current level ID.
+        - It translates the maze size to screen coordinates and creates a GameRenderer.
+        - It creates walls, cookies, unstoppability power-ups, cells, ghosts, and the hero (Pacman) based on the game state.
+        - It starts the game loop by calling the tick method on the GameRenderer.
+
+        Returns:
+        - None
+        """
         print(f'Рівень складності: {args.difficulty}')
         print(f'Колір фону: {args.background}')
         pacman_game = PacmanGameController(self.levelId)

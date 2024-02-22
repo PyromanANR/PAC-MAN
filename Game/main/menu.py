@@ -20,6 +20,23 @@ class Menu:
         pygame.quit()
 
     def create_menu(self, title, buttons):
+        """
+        Creates the main game menu with the given title and buttons.
+
+        Parameters:
+        - title (str): The title of the menu, displayed at the top of the screen.
+        - buttons (List[Button]): A list of Button objects to be displayed on the screen.
+
+        Usage:
+        - This method is used to create the main game menu.
+        - It displays the given title and set of buttons on the screen.
+        - Each button can have its own image and click behavior.
+        - The loop continues until the game is closed or another command is received.
+
+        Returns:
+        - None
+        """
+
         WIDTH, HEIGHT = 900, 600
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(title)
@@ -54,6 +71,19 @@ class Menu:
                 pygame.display.update()
 
     def main_menu(self):
+        """
+        Creates the main menu of the game.
+
+        Usage:
+        - This method is used to create the main menu of the game.
+        - It creates an 'Exit' button and a 'Start' button.
+        - The 'Exit' button will close the game when clicked.
+        - The 'Start' button will take the user to the levels menu when clicked.
+
+        Returns:
+        - None
+        """
+
         exit_button = Button(375, 500, 150, 50, 'Exit', (255, 255, 255), sys.exit, (204, 0, 0),
                              (0, 0, 0))
         levels_button = Button(375, 430, 150, 50, 'Start', (255, 255, 255), self.levels_menu, (147, 196, 125),
@@ -61,6 +91,20 @@ class Menu:
         self.create_menu("Menu", [exit_button, levels_button])
 
     def levels_menu(self):
+        """
+        Creates the levels menu of the game.
+
+        Usage:
+        - This method is used to create the levels menu of the game.
+        - It creates a 'Level 1' button, a 'Level 2' button, and a 'Back' button.
+        - The 'Level 1' button will set the game's level to 1 when clicked.
+        - The 'Level 2' button will set the game's level to 2 when clicked.
+        - The 'Back' button will take the user back to the main menu when clicked.
+
+        Returns:
+        - None
+        """
+
         level2_button = Button(375, 500, 150, 50, 'Level 2', (255, 255, 255), lambda: setattr(self, 'levelId', 1),
                                (170, 170, 170), (0, 0, 0), '../../images\level2.png')
         level1_button = Button(375, 430, 150, 50, 'Level 1', (255, 255, 255), lambda: setattr(self, 'levelId', 0),
