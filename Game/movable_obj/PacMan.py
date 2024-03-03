@@ -1,4 +1,5 @@
 import pygame
+import os
 from Game.game_controllers.Direction import Direction
 from Game.game_controllers.ScoreType import ScoreType
 from Game.game_controllers.Translate_func import translate_maze_to_screen
@@ -10,8 +11,8 @@ class PacMan(MovableObject):
         super().__init__(in_surface, x, y, in_size, (255, 255, 0), False)
         self.game_controller = in_game_controller
         self.last_non_colliding_position = (0, 0)
-        self.open = pygame.image.load("..\..\images\paku.png")
-        self.closed = pygame.image.load("..\..\images\man.png")
+        self.open = pygame.image.load(os.path.join('..', '..', 'images', 'paku.png'))
+        self.closed = pygame.image.load(os.path.join('..', '..', 'images', 'man.png'))
         self.image = self.open
         self.mouth_open = True
 

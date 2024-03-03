@@ -40,7 +40,7 @@ class Menu:
         WIDTH, HEIGHT = 900, 600
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(title)
-        image_path = os.path.join('../../images', 'background.jpg')
+        image_path = os.path.join('..', '..', 'images', 'background.jpg')
         main_background = pygame.image.load(image_path)
 
         while self.running:
@@ -106,9 +106,9 @@ class Menu:
         """
 
         level2_button = Button(375, 500, 150, 50, 'Level 2', (255, 255, 255), lambda: setattr(self, 'levelId', 1),
-                               (170, 170, 170), (0, 0, 0), '../../images\level2.png')
+                               (170, 170, 170), (0, 0, 0), os.path.join('..', '..', 'images', 'level2.png'))
         level1_button = Button(375, 430, 150, 50, 'Level 1', (255, 255, 255), lambda: setattr(self, 'levelId', 0),
-                               (170, 170, 170), (0, 0, 0), '../../images\level1.png')
+                               (170, 170, 170), (0, 0, 0), os.path.join('..', '..', 'images', 'level1.png'))
         back_button = Button(15, 15, 40, 40, '<-', (255, 255, 255), self.main_menu, (170, 170, 170),
                              (0, 0, 0))
         self.create_menu("Choose a level", [level1_button, level2_button, back_button])

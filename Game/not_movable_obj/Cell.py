@@ -1,8 +1,8 @@
 import pygame
-
+import os
 from Game.game_controllers.Game import GameObject
 # Load the image for the cell
-cell_image = pygame.image.load("..\..\images\cell.png")
+cell_image = pygame.image.load(os.path.join('..', '..', 'images', 'cell.png'))
 
 
 class Cell(GameObject):

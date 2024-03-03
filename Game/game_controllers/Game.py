@@ -6,6 +6,7 @@ from Game.game_controllers.GhostBehaviour import GhostBehaviour
 from Game.game_controllers.Translate_func import translate_maze_to_screen
 from Game.main.button import Button
 from Game.main.menu import Menu
+import os
 
 
 class GameObject:
@@ -136,7 +137,7 @@ class GameRenderer:
                 game_object.draw()
 
             for i in range(self._lives):
-                self._screen.blit(pygame.transform.scale(pygame.image.load("..\..\images\lives.png"), (30, 30)),
+                self._screen.blit(pygame.transform.scale(pygame.image.load(os.path.join("..", "..", "images", "lives.png")), (30, 30)),
                                   (320 + i * 40, self._height - 55))
             self.display_text(f"Score: {self._score} Lives: ", in_position=(15, self._height - 72), in_size=45)
             if self._hero is None: self.display_text("YOU DIED", (255, 0, 0),

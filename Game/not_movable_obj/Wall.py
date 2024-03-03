@@ -1,8 +1,9 @@
+import os
 import pygame
 
 from Game.game_controllers.Game import GameObject
 # Load the image for the wall
-wall_image = pygame.image.load("..\..\images\Brick-wall.jpg")
+wall_image = pygame.image.load(os.path.join('..', '..', 'images', 'Brick-wall.jpg'))
 
 
 class Wall(GameObject):
