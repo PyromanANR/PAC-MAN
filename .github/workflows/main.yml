@@ -31,3 +31,18 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Test with pytest and create a report
+      run: |
+        pytest --html=report.html
+
+    - name: Lint with flake8 and create a report
+      run: |
+        flake8 . --format=html --htmldir=flake8_report
+
+    - name: Upload reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test and lint reports
+        paths:
+          - report.html
+          - flake8_report
