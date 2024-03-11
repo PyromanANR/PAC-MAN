@@ -348,7 +348,9 @@ class GameRenderer:
                         ghost.position = (translated[0], translated[1])
 
             self._button.click(event)
+            self.handle_move_switch()
 
+    def handle_move_switch(self):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
             self._hero.direction = Direction.UP
