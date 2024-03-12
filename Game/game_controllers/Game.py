@@ -352,10 +352,10 @@ class GameRenderer:
 
     def handle_move_switch(self):
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_UP]:
-            self._hero.direction = Direction.UP
-        elif pressed[pygame.K_LEFT]:
+        if pressed[pygame.K_LEFT]:
             self._hero.direction = Direction.LEFT
+        elif pressed[pygame.K_UP]:
+            self._hero.direction = Direction.UP
         elif pressed[pygame.K_DOWN]:
             self._hero.direction = Direction.DOWN
         elif pressed[pygame.K_RIGHT]:

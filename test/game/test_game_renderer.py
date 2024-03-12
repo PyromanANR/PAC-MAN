@@ -35,12 +35,12 @@ class TestGameRenderer:
         game_renderer.hero = pacman
 
         with patch('pygame.key.get_pressed') as mock_get_pressed:
-            keys = {key: 1 for key in [pygame.K_UP, pygame.K_LEFT, pygame.K_DOWN, pygame.K_RIGHT]}
+            keys = {key: 0 for key in [pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, pygame.K_RIGHT]}
             keys[key] = 1  # simulate key press
             mock_get_pressed.return_value = keys
             game_renderer.handle_move_switch()
 
-        assert game_renderer._hero.direction[1] == expected_direction
+        assert game_renderer._hero.direction[0] == expected_direction
 
     def test_add_score(self):
         game_renderer = GameRenderer(800, 600)

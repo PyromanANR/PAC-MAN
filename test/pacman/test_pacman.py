@@ -2,8 +2,11 @@ from Game.game_controllers.PacmanGameController import PacmanGameController
 from Game.game_controllers.Direction import Direction
 from Game.game_controllers.Game import GameRenderer
 from Game.movable_obj.PacMan import PacMan
-from unittest.mock import Mock
+from Game.movable_obj.Ghost import Ghost
+from Game.game_controllers.ScoreType import ScoreType
+from unittest.mock import Mock, MagicMock, patch
 import pytest
+from copy import deepcopy
 
 
 class TestPacman:
@@ -45,4 +48,53 @@ class TestPacman:
         assert pacman.position != initial_position
         assert pacman.current_direction == initial_direction
         assert pacman.last_working_direction == initial_direction
+
+    @pytest.fixture
+    def ghost(self):
+        # Mock the in_surface and in_game_controller arguments as we don't need them for these tests
+        in_surface = MagicMock()
+        in_game_controller = MagicMock()
+
+        # Create mock images
+        mock_image = MagicMock()
+        sprite_path = MagicMock()
+        sprite_fright = MagicMock()
+
+        # Mock pygame.image.load to return the mock images
+        with patch('pygame.image.load', return_value=mock_image):
+            return Ghost(in_surface, 0, 0, 30, in_game_controller, sprite_path, sprite_fright)
+
+    def test_handle_ghosts(self, ghost):
+        game_renderer = GameRenderer(800, 600)
+        pacman_game = PacmanGameController(0)
+        pacman = PacMan(game_renderer, 0, 0, 30, pacman_game)
+        game_renderer.hero = pacman
+        ghost2 = deepcopy(ghost)
+
+        # Add the ghost to the game objects and the ghost list
+        game_renderer.game_object.append(ghost)
+        game_renderer.ghost.append(ghost)
+
+        # Mock the add_score and kill_pacman methods
+        game_renderer.add_score = Mock()
+
+        # Set the kokoro_active attribute to True
+        game_renderer.kokoro_active = True
+
+        pacman.handle_ghosts()
+
+        # Check if the add_score method is called correctly
+        game_renderer.add_score.assert_called_once_with(ScoreType.GHOST)
+
+        # Set the kokoro_active attribute to False and the won attribute to False
+        game_renderer.game_object.append(ghost2)
+        game_renderer.ghost.append(ghost2)
+        game_renderer.kokoro_active = False
+        game_renderer.won = False
+        game_renderer.kill_pacman = Mock()
+        pacman.handle_ghosts()
+
+        # Check if the kill_pacman method is called
+        game_renderer.kill_pacman.assert_called_once()
+
 
