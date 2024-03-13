@@ -10,10 +10,25 @@ from copy import deepcopy
 
 
 class TestPacman:
-    def test_tick(self):
+    @pytest.fixture
+    def pacman(self):
+        # Mock the in_surface and in_game_controller arguments as we don't need them for these tests
+        in_surface = MagicMock()
+        in_game_controller = MagicMock()
+
+        # Create mock images
+        open_image = MagicMock()
+        closed_image = MagicMock()
+
+        # Mock pygame.image.load to return the mock images
+        with patch('pygame.image.load', side_effect=[open_image, closed_image]):
+            return PacMan(in_surface, 0, 0, 30, in_game_controller)
+
+    def test_tick(self, pacman):
         game_renderer = GameRenderer(800, 600)
         pacman_game = PacmanGameController(0)
-        pacman = PacMan(game_renderer, 0, 0, 30, pacman_game)
+        pacman._renderer._width = 800
+        pacman._renderer._height = 600
 
         # Mock the methods that tick calls
         pacman.check_collision_in_direction = Mock(return_value=[False])
@@ -31,10 +46,9 @@ class TestPacman:
         pacman.handle_cookie_pickup.assert_called_once()
         pacman.handle_ghosts.assert_called_once()
 
-    def test_automatic_move(self):
+    def test_automatic_move(self, pacman):
         game_renderer = GameRenderer(800, 600)
         pacman_game = PacmanGameController(0)
-        pacman = PacMan(game_renderer, 0, 0, 30, pacman_game)
 
         # Mock the check_collision_in_direction method
         pacman.check_collision_in_direction = Mock(return_value=[False, (10, 10)])
@@ -64,12 +78,11 @@ class TestPacman:
         with patch('pygame.image.load', return_value=mock_image):
             return Ghost(in_surface, 0, 0, 30, in_game_controller, sprite_path, sprite_fright)
 
-    def test_handle_ghosts(self, ghost):
+    def test_handle_ghosts(self, ghost, pacman):
         game_renderer = GameRenderer(800, 600)
+        pacman._renderer = game_renderer
         pacman_game = PacmanGameController(0)
-        pacman = PacMan(game_renderer, 0, 0, 30, pacman_game)
         game_renderer.hero = pacman
-        ghost2 = deepcopy(ghost)
 
         # Add the ghost to the game objects and the ghost list
         game_renderer.game_object.append(ghost)
@@ -87,8 +100,6 @@ class TestPacman:
         game_renderer.add_score.assert_called_once_with(ScoreType.GHOST)
 
         # Set the kokoro_active attribute to False and the won attribute to False
-        game_renderer.game_object.append(ghost2)
-        game_renderer.ghost.append(ghost2)
         game_renderer.kokoro_active = False
         game_renderer.won = False
         game_renderer.kill_pacman = Mock()

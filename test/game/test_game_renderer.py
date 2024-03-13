@@ -5,15 +5,28 @@ from Game.movable_obj.PacMan import PacMan
 from Game.game_controllers.PacmanGameController import PacmanGameController
 import pygame
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from Game.game_controllers.Direction import Direction
 
 
 class TestGameRenderer:
-    def test_kill_pacman(self):
+    @pytest.fixture
+    def pacman(self):
+        # Mock the in_surface and in_game_controller arguments as we don't need them for these tests
+        in_surface = MagicMock()
+        in_game_controller = MagicMock()
+
+        # Create mock images
+        open_image = MagicMock()
+        closed_image = MagicMock()
+
+        # Mock pygame.image.load to return the mock images
+        with patch('pygame.image.load', return_value=[open_image, closed_image]):
+            return PacMan(in_surface, 0, 0, 30, in_game_controller)
+
+    def test_kill_pacman(self, pacman):
         game_renderer = GameRenderer(800, 600)
         pacman_game = PacmanGameController(0)
-        pacman = PacMan(game_renderer, 0, 0, 30, pacman_game)
         game_renderer.hero = pacman
 
         initial_lives = game_renderer._lives
@@ -28,10 +41,9 @@ class TestGameRenderer:
         (pygame.K_DOWN, Direction.DOWN),
         (pygame.K_RIGHT, Direction.RIGHT)
     ])
-    def test_handle_move_switch(self, key, expected_direction):
+    def test_handle_move_switch(self, key, expected_direction, pacman):
         game_renderer = GameRenderer(800, 600)
         pacman_game = PacmanGameController(0)
-        pacman = PacMan(game_renderer, 0, 0, 30, pacman_game)
         game_renderer.hero = pacman
 
         with patch('pygame.key.get_pressed') as mock_get_pressed:
